@@ -1,0 +1,11 @@
+.info_account{
+    font-size: 15px;
+}
+#search{
+     margin-left: 0%;
+     width:100%;
+     padding:10px 0 15px 0;
+     border: 1px solid #eeeeee;
+     margin-bottom: 8px;
+     border-radius: 20px;
+ }

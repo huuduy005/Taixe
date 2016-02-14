@@ -1,0 +1,42 @@
+.search_info{
+  margin-top: 7px;
+}
+
+.glyphicon-resize-horizontal{
+  padding-top: 7px;
+  font-size: 30px
+}
+
+.search_info{
+  text-align: center;
+}
+label{
+  float: left;
+  width: 30%;
+  padding-top: 8px;
+}
+.select-bar, #khoihanh{
+  float: right;
+ width: 70%!important;
+  font-size: 12px!important;
+}
+
+.chitiet_dixe{
+  padding: 8px;
+  background: #ff7900;
+  color: white;
+}
+// use for timepicker
+.icon-chevron-up{
+    background: black;
+}
+
+.table{
+  margin-bottom: 0px!important;
+}
+.table th, .table td {
+  border-top: none !important;
+}
+body{
+  word-wrap:break-word;
+}
