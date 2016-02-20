@@ -204,10 +204,13 @@
                     $.get('/delete/{{$model}}',
                             {id_xoa: id},
                             function (data) {
+                                console.log(data);
                                 if (data == 'delete-successfully') {
                                     $(".row" + id).hide();
                                     swal(name, "Xóa thành công" + name, "success");
+                                    return;
                                 }
+                                swal("Không cho phép", "Dữ liệu này có liên quan đến những dữ liệu khác", "error");
                             }
                     )
                 });

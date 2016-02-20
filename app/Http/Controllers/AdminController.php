@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Loaitin;
 use App\Loaixe;
 use App\Thanhpho;
 use App\Tindang;
 use App\User;
+use Debugbar;
 use Illuminate\Support\Facades\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use DebugBar;
 
 class AdminController extends Controller
 {
@@ -48,34 +44,12 @@ class AdminController extends Controller
 
     public function taikhoan()
     {
-        if(Request::ajax()){
 
-            //use for delete
-            if(Request::get("xoa")){
-                $id = Request::get("id_xoa");
-
-                User::where('id', '=', $id)->delete();
-
-                return "delete-successfully";
-            }
-
-
-            //use for delete for range
-            if(Request::get("xoachon")){
-                $ids = Request::get("id_xoachon");
-
-
-                foreach($ids as $id){
-                    User::where('id', '=', $id)->delete();
-                }
-
-                return "delete-successfully";
-            }
-
-        }
-
-        $taikhoans = User::where('email','<>', 'toantam@gmail.com')->paginate(20);
+        $taikhoans = User::where('email', '<>', 'toantam@gmail.com')->paginate(20);
 
         return view('admin.taikhoans.taikhoan', compact('taikhoans'));
     }
+
+
+
 }

@@ -41,6 +41,30 @@
                 });
     })
 
+    $('.xoa_tinluu').click(function () {
+        id = $(this).attr('id-xoa');
+        swal({
+                    title: "Bạn có thực sự muốn xóa  ?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Đồng ý",
+                    cancelButtonText: "Hủy",
+                    closeOnConfirm: false
+                },
+                function () {
+                    $.get('/delete_tinluu',
+                            {id_xoa: id},
+                            function (data) {
+                                if (data == 'delete-successfully') {
+                                    $(".table" + id).hide();
+                                    swal("Thông báo", "Xóa thành công ", "success");
+                                }
+                            }
+                    )
+                });
+    })
+
     $('.lammoi_tindang').click(function () {
         id = $(this).attr('id-lammoi');
         swal({

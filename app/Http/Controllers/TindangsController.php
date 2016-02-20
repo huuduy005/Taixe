@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DangtinRequest;
-use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use App\Loaitin;
-use App\Loaixe;
 use App\Tindang;
 use App\User;
-use App\User_save_tindang;
-
 use Carbon\Carbon;
-use Faker\Provider\DateTime;
-use Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Debugbar;
+use Illuminate\Support\Facades\Auth;
+use Request;
+
 class TindangsController extends Controller
 {
     public function __construct()
@@ -30,21 +24,21 @@ class TindangsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function ajax_save_tindang()
+    public function ajaxSaveTindang()
     {
-        if(Request::ajax()){
-            if(isset($_REQUEST['act'])){
-                if($_REQUEST['act'] == "luu"){
+        if (Request::ajax()) {
+            if (isset($_REQUEST['act'])) {
+                if ($_REQUEST['act'] == "luu") {
                     $tindang_id = Request::get('tindang_id');
 
                     $check = false;
-                    foreach(Auth::user()->save_tindangs as $item){
-                        if($item['id'] == $tindang_id){
+                    foreach (Auth::user()->save_tindangs as $item) {
+                        if ($item['id'] == $tindang_id) {
                             $check = true;
                         }
                     }
 
-                    if($check){
+                    if ($check) {
                         return "error";
                     }
 
@@ -52,17 +46,15 @@ class TindangsController extends Controller
 
                 }
 
-                if($_REQUEST['act'] == "capnhat"){
+                if ($_REQUEST['act'] == "capnhat") {
                     $tindang_id = Request::get('tindang_id');
                     $lotrinh = Request::get('lotrinh');
 
                     $temp = Tindang::find($tindang_id);
 
-
                     $temp->lotrinhhientai = $lotrinh;
                     $temp->TG_capnhatlotrinh = carbon::now('Asia/Ho_Chi_Minh');
                     $temp->save();
-
 
                     return "success";
                 }
@@ -79,7 +71,7 @@ class TindangsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -88,11 +80,24 @@ class TindangsController extends Controller
 
         $tindang = new Tindang();
 
+
+        if(Request::get('rd_loaitin') == "tinthuong"){
+            if (Auth::user()->is('hanhkhach')) {
+                $loaitin_id = Loaitin::where('tenLT', "Tìm xe")->first()->id;
+            } else {
+                $loaitin_id = Loaitin::where('tenLT', "Tìm khách")->first()->id;
+            }
+        } else{
+            $loaitin_id = Loaitin::where('tenLT', "Dịch vụ")->first()->id;
+        }
+
+        $tindang->loaitin_id = $loaitin_id;
+
         $tindang->fill(Request::all());
 
         $price = $tindang->loaitin->giatien;
 
-        if(Auth::user()->soduTK - $price < 0){
+        if (Auth::user()->soduTK - $price < 0) {
             flash('flash_message1', 'Tài khoản của bạn không đủ để đăng tin!', 'important');
 
             return redirect('/dashboard');
@@ -107,22 +112,21 @@ class TindangsController extends Controller
         return redirect('/dashboard');
     }
 
-
     public function show(Tindang $tindang)
     {
         $taixe = $tindang->user->taixe;
 
-        if(is_null($taixe)){
+        if (is_null($taixe)) {
             return view('tindangs.chitiet', compact('tindang'));
-        }else{
+        } else {
             return view('tindangs.chitiet', compact('tindang', 'taixe'));
         }
-
 
     }
 
     public function edit(Tindang $tindang)
     {
+        DebugBar::info($tindang->loaitin->toArray());
         return view('tindangs.edit', compact('tindang'));
     }
 

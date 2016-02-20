@@ -17,7 +17,7 @@ class LoaitinsTableSeeder extends Seeder
         DB::table('loaitins')->insert([
         ['tenLT' => 'Tìm khách', 'giatien' => 2000],
         ['tenLT' => 'Tìm xe',  'giatien' => 1500],
-        ['tenLT' => 'Rao vặt',  'giatien' => 1000]
+        ['tenLT' => 'Dịch vụ',  'giatien' => 2000]
          ]);
     }
 }

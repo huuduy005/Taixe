@@ -8,12 +8,15 @@
                 <label for="thanhphonoidi">Nơi đi</label>
                 <select class="form-control col-sm-2 select-bar" id="thanhphonoidi" name="thanhphonoidi">
                     @foreach($province as $item)
-                        <option value="{{ $item['tenTP'] }}">{{ $item['tenTP']}}</option>
+                        @if(Request::input('thanhphonoidi') == $item['tenTP'])
+                            <option value="{{ $item['tenTP'] }}" selected>{{ $item['tenTP']}}</option>
+                        @endif
+                            <option value="{{ $item['tenTP'] }}">{{ $item['tenTP']}}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-sm-1 text-right">
-                <a href="#">
+                <a href="#" class="switch_thanhpho">
                     <span class="glyphicon glyphicon-resize-horizontal"></span>
                 </a>
             </div>
@@ -21,7 +24,10 @@
                 <label for="thanhphonoiden">Nơi đến</label>
                 <select name="thanhphonoiden" id="thanhphonoiden" class="form-control select-bar">
                     @foreach($province as $item)
-                        <option value="{{  $item['tenTP'] }}">{{  $item['tenTP'] }}</option>
+                        @if(Request::input('thanhphonoiden') == $item['tenTP'])
+                            <option value="{{  $item['tenTP'] }}" selected>{{  $item['tenTP'] }}</option>
+                        @endif
+                            <option value="{{  $item['tenTP'] }}">{{  $item['tenTP'] }}</option>
                     @endforeach
                 </select>
             </div>
@@ -41,6 +47,18 @@
 </div>
 
 <script type="text/javascript">
+
+
+    $('.switch_thanhpho').click(function(){
+        tpnoidi = $('#thanhphonoidi').val();
+        tpnoiden = $('#thanhphonoiden').val();
+
+        $('#thanhphonoidi').val(tpnoiden);
+
+        $('#thanhphonoiden').val(tpnoidi);
+
+    });
+
     //Timepicker
     $(".timepicker").timepicker({
         showInputs: false,

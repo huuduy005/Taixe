@@ -46,15 +46,18 @@
                 </div>
                 <div class="col-sm-1 text-right">
                     <a href="#" title="Cập nhật thông tin cá nhân" class="capnhat_taikhoan">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size: 25px; color: #337ab7"></span>
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"
+                              style="font-size: 25px; color: #337ab7"></span>
                     </a>
                     <div class="confirm_update">
                         <a href="#" title="Cập nhật thông tin cá nhân" class="capnhat_ok">
-                                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true" style="font-size: 30px; color: #337ab7"></span>
+                            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"
+                                  style="font-size: 30px; color: #337ab7"></span>
                         </a>
                         <br>
                         <a href="#" title="Cập nhật thông tin cá nhân" class="capnhat_cancel">
-                                <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" style="font-size: 30px; color: #337ab7"></span>
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"
+                                  style="font-size: 30px; color: #337ab7"></span>
                         </a>
                     </div>
                 </div>
@@ -117,8 +120,10 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#bai_dang" aria-controls="bai_dang" role="tab"
-                                                  data-toggle="tab">Danh sách bài đã đăng</a></li>
-        <li role="presentation"><a href="#bai_luu" aria-controls="bai_dang" role="tab" data-toggle="tab">Danh sách bài
+                                                  data-toggle="tab">Danh sách tin đã đăng</a></li>
+        <li role="presentation"><a href="#bai_dichvu" aria-controls="bai_dang" role="tab" data-toggle="tab">Danh sách
+                tin dịch vụ đã đăng</a></li>
+        <li role="presentation"><a href="#bai_luu" aria-controls="bai_dang" role="tab" data-toggle="tab">Danh sách tin
                 đã lưu</a></li>
     </ul>
 
@@ -249,99 +254,130 @@
                         @if(isset($tindang_saves))
                             <div>
                                 @foreach($tindang_saves as $tindang)
-                                    <table class="list_trangchu table table-responsive table{{$tindang->id}}">
-                                        <tr>
-                                            <td width="250">
-                                                <table cellpadding="15">
-                                                    @if(Auth::user()->is('hanhkhach'))
+                                    @unless($tindang->loaitin->tenLT == "Dịch vụ")
+                                        @unless($tindang->status)
+                                            <style>
+                                                .table{{$tindang->id}} .chitiet_dixe {
+                                                    display: none;
+                                                }
+
+                                                .table{{$tindang->id}} :hover {
+                                                    background: white;
+                                                }
+
+                                                .table{{$tindang->id}} .color-blue, .table{{$tindang->id}}    {
+                                                    color: #bbb !important;
+                                                }
+
+                                            </style>
+                                        @endunless
+                                        <table class="list_trangchu table table-responsive table{{$tindang->id}}">
+                                            <tr>
+                                                <td width="250">
+                                                    <table cellpadding="15">
+                                                        @if(Auth::user()->is('hanhkhach'))
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    &nbsp;
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                        <tr>
+                                                            <td rowspan="4" width="100">
+                                                                <div class="img_avatar">
+                                                                    @if($tindang->user->is('hanhkhach'))
+                                                                        <img src="images/passager.jpg" width="60"
+                                                                             height="60"
+                                                                             class="img-responsive img-rounded img1 ">
+                                                                    @else
+                                                                        <img src="images/cab.jpg" width="60" height="60"
+                                                                             class="img-responsive img-rounded img1 ">
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                            <td width="80"><strong>Họ tên: </strong></td>
+                                                            <td class="value_hoten">{{ $tindang->user->hoten }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>SĐT: </strong></td>
+                                                            <td class="value_sdt">{{ $tindang->user->SDT }}</td>
+                                                        </tr>
+                                                        {{--*/$taixe1 =  $tindang->user->taixe/*--}}
+                                                        <tr>
+                                                            @if($tindang->user->is('hanhkhach') || $tindang->user->is('admin'))
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                            @else
+                                                                <td><strong>Loại xe: </strong></td>
+                                                                <td>{{ $tindang->user->taixe->loaixe->tenLX }}</td>
+                                                            @endif
+                                                        </tr>
                                                         <tr>
                                                             <td colspan="2">
-                                                                &nbsp;
+                                                                @if(!$tindang->user->is('hanhkhach'))
+                                                                    <input value="{{ $taixe1->ratepoint }}"
+                                                                           id="rating{{ $tindang->id }}" type="number"
+                                                                           class="rating rating{{ $taixe1->id }}" min=0
+                                                                           max=5 step=0.5 data-size="xs"
+                                                                           data-show-caption="false">
+                                                                    <font color="#aaa">
+                                                                    <span class="ratinglabel{{ $taixe1->id }}">{{ $taixe1->ratepoint }}
+                                                                        / 5 điểm - {{ $taixe1->ratecount }} </span> lượt
+                                                                        bầu
+                                                                    </font>
+                                                                    @include('partials.star_rating', ['tindang'=> $tindang, 'taixe' => $taixe1])
+                                                                @endif
                                                             </td>
                                                         </tr>
-                                                    @endif
-                                                    <tr>
-                                                        <td rowspan="4" width="100">
-                                                            <div class="img_avatar">
-                                                                @if($tindang->user->is('hanhkhach'))
-                                                                    <img src="images/passager.jpg" width="60"
-                                                                         height="60"
-                                                                         class="img-responsive img-rounded img1 ">
-                                                                @else
-                                                                    <img src="images/cab.jpg" width="60" height="60"
-                                                                         class="img-responsive img-rounded img1 ">
-                                                                @endif
-                                                            </div>
-                                                        </td>
-                                                        <td width="80"><strong>Họ tên: </strong></td>
-                                                        <td class="value_hoten">{{ $tindang->user->hoten }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>SĐT: </strong></td>
-                                                        <td class="value_sdt">{{ $tindang->user->SDT }}</td>
-                                                    </tr>
-                                                    {{--*/$taixe1 =  $tindang->user->taixe/*--}}
-                                                    <tr>
-                                                        @if(Auth::user()->is('hanhkhach') || Auth::user()->is('admin'))
-                                                            <td>&nbsp;</td>
-                                                            <td>&nbsp;</td>
-                                                        @else
-                                                            <td><strong>Loại xe: </strong></td>
-                                                            <td>{{ $taixe->tenLX }}</td>
-                                                        @endif
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            @if(!$tindang->user->is('hanhkhach'))
-                                                                <input value="{{ $taixe1->ratepoint }}" id="rating{{ $tindang->id }}" type="number" class="rating rating{{ $taixe1->id }}" min=0 max=5 step=0.5 data-size="xs" data-show-caption="false">
-                                                                <font color="#aaa">
-                                                                    <span class="ratinglabel{{ $taixe1->id }}">{{ $taixe1->ratepoint }} / 5 điểm - {{ $taixe1->ratecount }} </span> lượt bầu
-                                                                </font>
-                                                                @include('partials.star_rating', ['tindang'=> $tindang, 'taixe' => $taixe1])
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td width="500" align="center">
-                                                <p class="value_lotrinh text-center"><i>{{$tindang->noidi}}
-                                                        - {{ $tindang->thanhphonoidi }} <font color="red">
-                                                            - </font> {{$tindang->noiden}}
-                                                        - {{ $tindang->thanhphonoiden }}</i></p>
-                                                <p class="value_giokhoihanh"><font
-                                                            color="blue">{{ $tindang->giokhoihanh }}  {{ $tindang->ngaykhoihanh }}</font>
-                                                </p>
-                                                <a href="/tindangs/{{ $tindang->id }}"
-                                                   class="chitiet_dixe border_radius">>Xem thông tin chi tiết ...</a>
-                                            </td>
-                                            <td width="253">
-                                                @include('partials.option_tindang')
-                                                <p>&nbsp;</p>
-                                                @unless($tindang->user->is("hanhkhach"))
-                                                    <div class="col-sm-4" style="padding-top: 7px">Giá vé:</div>
-                                                    <div class="col-sm-7">
-                                                        <p class="value_giave text-center"><font color="red"
-                                                                                                 face="verdana">
-                                                                @if($tindang->giave == 0)
-                                                                    <i>Thỏa thuận</i></font>
-                                                            @else
-                                                                <i>{{ number_format($tindang->giave,0, ",", ".") }}
-                                                                    đ</i></font>
-                                                            @endif
-                                                        </p>
-                                                    </div>
-                                                    @else
-                                                        <p>&nbsp;</p>
-                                                    @endunless
+                                                    </table>
+                                                </td>
+                                                <td width="500" align="center">
+                                                    <p class="value_lotrinh text-center"><i>{{$tindang->noidi}}
+                                                            - {{ $tindang->thanhphonoidi }} <font class="color-blue">
+                                                                - </font> {{$tindang->noiden}}
+                                                            - {{ $tindang->thanhphonoiden }}</i></p>
+                                                    <p class="value_giokhoihanh"><font
+                                                                class="color-blue">{{ $tindang->giokhoihanh }}  {{ $tindang->ngaykhoihanh }}</font>
+                                                    </p>
+                                                    <a href="/tindangs/{{ $tindang->id }}"
+                                                       class="chitiet_dixe border_radius">>Xem thông tin chi tiết
+                                                        ...</a>
+                                                </td>
+                                                <td width="253">
+                                                    @include('partials.option_tindang_luu')
 
-                                                        <div class="row">
-                                                            <div class="col-sm-4">Ngày đăng:</div>
-                                                            <div class="col-sm-7">{{ $tindang->ngaydang }}</div>
+                                                    @unless($tindang->status)
+                                                        <p class="text-center"><font color="red" size="4">Bài
+                                                                đăng đã bị xóa</font></p>
+                                                    @endunless
+                                                    @unless($tindang->user->is("hanhkhach"))
+                                                        <div class="col-sm-4" style="padding-top: 7px">Giá vé:</div>
+                                                        <div class="col-sm-7">
+                                                            <p class="value_giave text-center"><font color="red"
+                                                                                                     face="verdana">
+                                                                    @if($tindang->giave == 0)
+                                                                        <i>Thỏa thuận</i></font>
+                                                                @else
+                                                                    <i>{{ number_format($tindang->giave,0, ",", ".") }}
+                                                                        đ</i></font>
+                                                                @endif
+                                                            </p>
                                                         </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                @endforeach
+                                                        @else
+                                                            @if($tindang->status)
+                                                                <p>&nbsp;</p>
+                                                            @endif
+                                                            @endunless
+
+                                                            <div class="row">
+                                                                <div class="col-sm-4">Ngày đăng:</div>
+                                                                <div class="col-sm-7">{{ $tindang->ngaydang }}</div>
+                                                            </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        @endunless
+                                        @endforeach
                             </div>
                         @endif
                     </div>
@@ -349,7 +385,89 @@
             </div>
             <div class="text-right"> {!! $tindangs->render() !!}</div>
         </div>
+
+        <div role="tabpanel" class="tab-pane" id="bai_dichvu">
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="list_content_timkhach">
+                        @if(isset($tin_dichvus))
+                            @foreach($tin_dichvus as $tin_dichvu)
+                                <table class="list_trangchu  table table-responsive table{{$tin_dichvu->id}}">
+                                    <tr>
+                                        <td width="250">
+                                            <table class="table-responsive">
+                                                <tr>
+                                                    <td colspan="2">
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td rowspan="4" width="100">
+                                                        <div class="img_avatar">
+                                                            @if(Auth::user()->is('hanhkhach'))
+                                                                <img src="images/passager.jpg" width="60"
+                                                                     height="60"
+                                                                     class="img-responsive img-rounded img1 ">
+                                                            @else
+                                                                <img src="images/cab.jpg" width="60" height="60"
+                                                                     class="img-responsive img-rounded img1 ">
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                    <td width="80"><strong>Họ tên: </strong></td>
+                                                    <td class="value_hoten">{{ $tin_dichvu->hoten }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>SĐT: </strong></td>
+                                                    <td class="value_sdt">{{ $tin_dichvu->SDT }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td width="500" align="center">
+                                            <div class="row">
+                                                <font color="blue" style="font-weight: bold"
+                                                      size="4">{{$tin_dichvu->tieude}}</font>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12"
+                                                     style="height: 30px; width: 500px;white-space: nowrap; word-break: break-word; overflow: hidden; text-overflow: ellipsis">
+                                                    {{$tin_dichvu->noidung}}
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <a href="/tindangs/{{ $tin_dichvu->id }}"
+                                               class="chitiet_dixe border_radius">>Xem thông tin chi tiết ...</a>
+                                        </td>
+                                        <td width="253">
+                                            @include('partials.option_tindang', ['tindang' => $tin_dichvu])
+                                            <p>&nbsp;</p>
+                                            <p>&nbsp;</p>
+                                            <div class="row">
+                                                <div class="col-sm-4">Ngày đăng:</div>
+                                                <div class="col-sm-7">{{ $tin_dichvu->ngaydang }}</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">{{ $tin_dichvus->render() }}</div>
         </div>
+
+
     </div>
+
+    <style>
+        .color-blue {
+            color: blue;;
+        }
+    </style>
     @include('partials.script_style.option_tindang')
 @endsection

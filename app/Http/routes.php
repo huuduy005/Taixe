@@ -9,6 +9,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', 'PagesController@trangchu');
     Route::get('/timxe', 'PagesController@timxe');
     Route::get('/timkhach', 'PagesController@timkhach');
+    Route::get('/dichvu', 'PagesController@dichvu');
 
 
     Route::get('/dangtin', 'TindangsController@create');
@@ -18,7 +19,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/trogiup', 'SupportController@trogiup');
     Route::get('/loaixe', 'SupportController@loaixe');
     Route::get('/update_taikhoan', 'SupportController@update_taikhoan');
-    Route::get('/delete_tindang', 'SupportController@delete_tindang');
+    Route::get('/delete_tindang', 'SupportController@deleteTindang');
+    Route::get('/delete_tinluu', 'SupportController@deleteTinluu');
     Route::get('/update_tindang', 'SupportController@update_tindang');
     Route::get('/cancel_update/{model}', 'SupportController@cancel_update');
 
@@ -39,7 +41,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/check_auth', 'supportController@check_auth');
 
     //route for remember tindang
-    Route::get('/tindangs/ajax',  'TindangsController@ajax_save_tindang');
+    Route::get('/tindangs/ajax',  'TindangsController@ajaxSaveTindang');
 
     Route::get('/tindangs/{tindang}', 'TindangsController@show');
 

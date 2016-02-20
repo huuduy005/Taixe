@@ -136,21 +136,41 @@ class SupportController extends Controller
                     break;
 
                 case 'loaixe':
-                    Loaixe::where('id', '=', $id)->delete();
+                    $loaixe = Loaixe::where('id', '=', $id)->first();
 
-                    return "delete-successfully";
+                    if ($loaixe->taixes->isEmpty()) {
+
+                        $loaixe->delete();
+                        return "delete-successfully";
+                    }
                     break;
 
                 case 'loaitin':
-                    Loaitin::where('id', '=', $id)->delete();
+                    $loaitin = Loaitin::where('id', '=', $id)->first();
 
-                    return "delete-successfully";
+                    if ($loaitin->tindangs->isEmpty()) {
+
+                        $loaitin->delete();
+                        return "delete-successfully";
+                    }
+
                     break;
 
                 case 'tindang':
                     Tindang::where('id', '=', $id)->delete();
 
                     return "delete-successfully";
+                    break;
+
+                case 'user':
+                    $user = User::where('id', '=', $id)->first();
+
+                    if ($user->rate_taixes->isEmpty() && $user->tindangs->isEmpty() && $user->save_tindangs->isEmpty()) {
+
+                        $user->delete();
+                        return "delete-successfully";
+                    }
+
                     break;
             }
         }
@@ -193,6 +213,21 @@ class SupportController extends Controller
                     }
 
                     return "delete-successfully";
+                    break;
+
+                case 'user':
+                    $check = true;
+                    foreach ($ids as $id) {
+                        $user = User::where('id', '=', $id)->first();
+
+                        if ($user->rate_taixes->isEmpty() && $user->tindangs->isEmpty() && $user->save_tindangs->isEmpty()) {
+                            $user->delete();
+                        } else {
+                            $check = false;
+                        }
+                    }
+
+                    if ($check) return "delete-successfully";
                     break;
             }
         }
@@ -369,13 +404,28 @@ class SupportController extends Controller
         }
     }
 
-    public function delete_tindang()
+    public function deleteTindang()
     {
         if (Request::ajax()) {
             $id = Request::get('id_xoa');
 
 
-            Tindang::where('id', '=', $id)->delete();
+            $tindang = Tindang::where('id', '=', $id)->first();
+
+            $tindang->status = false;
+            $tindang->save();
+
+
+            return "delete-successfully";
+        }
+    }
+
+    public function deleteTinluu()
+    {
+        if (Request::ajax()) {
+            $id = Request::get('id_xoa');
+
+            Auth::user()->save_tindangs()->detach($id);
 
             return "delete-successfully";
         }
@@ -389,15 +439,15 @@ class SupportController extends Controller
             $temp = Tindang::find($id);
             $price = $temp->loaitin()->first()->giatien / 2;
 
-            if(Auth::user()->soduTK - $price < 0){
+            if (Auth::user()->soduTK - $price < 0) {
                 flash('flash_message1', 'Tài khoản của bạn không đủ để làm mới', "important");
-                return ;
+                return;
             }
 
             $temp->ngaydang = Carbon::now('Asia/Ho_Chi_Minh');
             $temp->save();
 
-            Auth::user()->soduTK -= $price / 2;
+            Auth::user()->soduTK -= $price;
             Auth::user()->save();
 
             flash("flash_message1", "Làm mới thành công!");

@@ -16,39 +16,25 @@ use Request;
 use Debugbar;
 class PagesController extends Controller
 {
-    public function __construct()
-    {
-        $order_by = "ngaydang";
-        $sort = "desc";
-        if(Input::get('sort') == 'giatangdan'){
-            $order_by = "giave";
-            $sort = "asc";
-        } elseif(Input::get('sort') == 'giagiamdan') {
-            $order_by = "giave";
-        }
-
-        $this->taixes = DB::table('tindangs')
-            ->select('tindangs.*', 'users.hoten', 'users.SDT', 'loaixes.tenLX', 'taixes.id as taixe_id', 'taixes.ratepoint', 'taixes.ratecount')
-            ->join('users', 'tindangs.user_id', '=', 'users.id')
-            ->join('taixes', 'users.id', '=', 'taixes.user_id')
-            ->join('loaixes', 'taixes.loaixe_id', '=', 'loaixes.id')
-            ->where('tindangs.status', '=', true)
-            ->orderBy($order_by, $sort);
-
-        $this->hanhkhaches = DB::table('tindangs')
-            ->select('tindangs.*', 'users.hoten', 'users.SDT')
-            ->join('users', 'tindangs.user_id', '=', 'users.id')
-            ->where('users.hanhkhach', '=', true)
-            ->where('tindangs.status', '=', true)
-            ->orderBy("ngaydang", "desc");
-
-    }
 
     private $taixes;
 
     private $hanhkhaches;
 
+    protected $dichvus;
 
+
+    public function dichvu()
+    {
+        $this->dichvuList();
+
+        $tin_dichvus = $this->dichvus->paginate(10);
+
+        Debugbar::info($tin_dichvus->toArray());
+
+        return view('pages.dichvu', compact('tin_dichvus'));
+
+    }
     public function trangchu()
     {
         // Use for updating star rates
@@ -79,9 +65,12 @@ class PagesController extends Controller
 
             $temp->save();
 
-
             return $temp;
         };
+
+
+        $this->timkhachList();
+        $this->timxeList();
 
         if(isset ( $_REQUEST['thanhphonoidi']) && isset ( $_REQUEST['thanhphonoiden']) && isset ( $_REQUEST['ngaykhoihanh'])){
 
@@ -113,13 +102,13 @@ class PagesController extends Controller
             $tindang_hanhkhaches = $this->hanhkhaches->paginate(2);
         }
 
-        //Debugbar::info($tindang_taixes->toArray());
 
         return view('pages.trangchu', compact('tindang_taixes', 'tindang_hanhkhaches'));
     }
 
     public function timxe()
     {
+        $this->timkhachList();
 
         if(isset ( $_REQUEST['thanhphonoidi']) && isset ( $_REQUEST['thanhphonoiden']) && isset ( $_REQUEST['ngaykhoihanh'])){
 
@@ -147,6 +136,7 @@ class PagesController extends Controller
 
     public function timkhach()
     {
+        $this->timxeList();
         if(isset ( $_REQUEST['thanhphonoidi']) && isset ( $_REQUEST['thanhphonoiden']) && isset ( $_REQUEST['ngaykhoihanh'])){
 
 
@@ -170,5 +160,50 @@ class PagesController extends Controller
 
         return view('pages.timkhach', compact('tindang_hanhkhaches'));
     }
+
+
+    protected function dichvuList()
+    {
+        $this->dichvus = DB::table('tindangs')
+            ->select('tindangs.*', 'users.hoten', 'users.SDT', 'users.hanhkhach')
+            ->join('users', 'tindangs.user_id', '=', 'users.id')
+            ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
+            ->where('loaitins.tenLT', '=', "Dịch vụ")
+            ->where('tindangs.status', '=', true)
+            ->orderBy("ngaydang", "desc");
+    }
+    protected function timkhachList()
+    {
+        $order_by = "ngaydang";
+        $sort = "desc";
+        if(Input::get('sort') == 'giatangdan'){
+            $order_by = "giave";
+            $sort = "asc";
+        } elseif(Input::get('sort') == 'giagiamdan') {
+            $order_by = "giave";
+        }
+
+        $this->taixes = DB::table('tindangs')
+            ->select('tindangs.*', 'users.hoten', 'users.SDT', 'loaixes.tenLX', 'taixes.id as taixe_id', 'taixes.ratepoint', 'taixes.ratecount')
+            ->join('users', 'tindangs.user_id', '=', 'users.id')
+            ->join('taixes', 'users.id', '=', 'taixes.user_id')
+            ->join('loaixes', 'taixes.loaixe_id', '=', 'loaixes.id')
+            ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
+            ->where('loaitins.tenLT', '=', "Tìm khách")
+            ->where('tindangs.status', '=', true)
+            ->orderBy($order_by, $sort);
+    }
+
+    protected function timxeList()
+    {
+        $this->hanhkhaches = DB::table('tindangs')
+            ->select('tindangs.*', 'users.hoten', 'users.SDT')
+            ->join('users', 'tindangs.user_id', '=', 'users.id')
+            ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
+            ->where('loaitins.tenLT', '=', "Tìm xe")
+            ->where('tindangs.status', '=', true)
+            ->orderBy("ngaydang", "desc");
+    }
+
 
 }

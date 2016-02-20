@@ -28,8 +28,8 @@
                 <li class="page-scroll">
                     <a href="#">Tin tức</a>
                 </li>
-                <li class="page-scroll">
-                    <a href="#">Dịch vụ</a>
+                <li class="page-scroll nav-dichvu">
+                    <a href="{{action('PagesController@dichvu')}}">Dịch vụ</a>
                 </li>
                 <li class="page-scroll">
                     <a href="#">Liên hệ</a>
@@ -90,5 +90,9 @@
 
     @if(Request::is('timxe'))
         $('.nav-timxe').css({'background': '#ddd'});
+    @endif
+
+     @if(Request::is('dichvu'))
+        $('.nav-dichvu').css({'background': '#ddd'});
     @endif
 </script>

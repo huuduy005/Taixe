@@ -124,7 +124,8 @@
                         cancelButtonText: "Hủy",
                         animation: "slide-from-top",
                         inputPlaceholder: "Nhập số tiền",
-                        html: true
+                        html: true,
+                        showLoaderOnConfirm: true,
                     },
                     function (inputValue) {
                         if (inputValue === false) return false;
@@ -200,7 +201,7 @@
                         if(array.length == 0){
                             sweetAlert("Có lỗi", "Bạn phải tích vào 1 hoặc nhiều ô để xóa chọn", "error");
                         } else
-                            $.get('{{ Request::url() }}',
+                            $.get('/delete_chosen/user',
                                     {id_xoachon: array, xoachon: true},
                                     function(data){
                                         if(data == 'delete-successfully'){
@@ -212,7 +213,10 @@
                                                 }
                                             }
                                             swal( "Thông báo", "Xóa thành công ", "success");
+                                            return;
                                         }
+
+                                        swal( "Thông báo", "Tồn tại tài khoản không thể xóa", "error");
                                     }
                             )
                     });
@@ -234,13 +238,15 @@
                         html: true
                     },
                     function(){
-                        $.get('{{ Request::url() }}',
+                        $.get('/delete/user',
                                 {id_xoa: id, xoa: true},
                                 function(data){
                                     if(data == 'delete-successfully'){
                                         $(".row"+id).hide();
                                         swal( name, "Xóa thành công "+ name , "success");
+                                        return ;
                                     }
+                                    swal( "Xóa thất bại", "Tài khoản này đã có thao tác với hệ thống", "error");
                                 }
                         )
                     });
