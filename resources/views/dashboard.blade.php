@@ -285,7 +285,7 @@
                                     <tr>
                                         <td width="300">
                                             <table cellpadding="15">
-                                                @if(Auth::user()->is('hanhkhach'))
+                                                @if($tindang->user->is('hanhkhach'))
                                                     <tr>
                                                         <td colspan="2">
                                                             &nbsp;
