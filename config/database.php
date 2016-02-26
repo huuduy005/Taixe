@@ -52,6 +52,18 @@ return [
             'prefix'   => '',
         ],
 
+       /* 'mysql' => [
+            'driver'    => 'mysql',
+            'host'      => 'mysql.hostinger.vn',
+            'database'  => 'u495670163_taixe',
+            'username'  => 'u495670163_root',
+            'password'  => '0987491230',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],*/
+
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),

@@ -16,7 +16,7 @@
                 sweetAlert("Không thành công", "Bạn đã đánh giá tài xế này rồi!", "error");
         $('.rating{{ $taixe->id }}').rating('reset');
         @else
-          $.get('/',
+          $.get('/rating',
                 {
                     tindang_taixe_id: "{{ $taixe->id }}",
                     point: value

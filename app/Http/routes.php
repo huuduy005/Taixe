@@ -23,6 +23,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/delete_tinluu', 'SupportController@deleteTinluu');
     Route::get('/update_tindang', 'SupportController@update_tindang');
     Route::get('/cancel_update/{model}', 'SupportController@cancel_update');
+    Route::get('/rating', 'SupportController@starRating');
 
     Route::get('/insert/{model}', 'SupportController@insert');
     Route::get('/delete/{model}', 'SupportController@delete');

@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @if(isset($tindang))
-        @unless($tindang->loaitin->tenLT == "Dịch vụ")
             @include('tindangs.partials.luu_capnhatlotrinh')
-        @endunless
         <div class="container-fluid row col-sm-offset-1">
             <div class="col-sm-11">
                 <div class="row">

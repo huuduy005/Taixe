@@ -71,7 +71,7 @@ class TindangsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request|Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -83,9 +83,9 @@ class TindangsController extends Controller
 
         if(Request::get('rd_loaitin') == "tinthuong"){
             if (Auth::user()->is('hanhkhach')) {
-                $loaitin_id = Loaitin::where('tenLT', "Tìm xe")->first()->id;
-            } else {
                 $loaitin_id = Loaitin::where('tenLT', "Tìm khách")->first()->id;
+            } else {
+                $loaitin_id = Loaitin::where('tenLT', "Tìm xe")->first()->id;
             }
         } else{
             $loaitin_id = Loaitin::where('tenLT', "Dịch vụ")->first()->id;
@@ -94,6 +94,12 @@ class TindangsController extends Controller
         $tindang->loaitin_id = $loaitin_id;
 
         $tindang->fill(Request::all());
+
+        $giave = $tindang->giave;
+
+        $giave = str_replace('.', '', $giave);
+
+        $tindang->giave = $giave;
 
         $price = $tindang->loaitin->giatien;
 
@@ -104,6 +110,7 @@ class TindangsController extends Controller
         }
 
         Auth::user()->tindangs()->save($tindang);
+        $tindang->save();
         Auth::user()->soduTK -= $price;
         Auth::user()->save();
 
@@ -126,7 +133,6 @@ class TindangsController extends Controller
 
     public function edit(Tindang $tindang)
     {
-        DebugBar::info($tindang->loaitin->toArray());
         return view('tindangs.edit', compact('tindang'));
     }
 

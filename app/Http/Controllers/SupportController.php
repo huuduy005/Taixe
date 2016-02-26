@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Loaitin;
 use App\Loaixe;
+use App\Taixe;
 use App\Thanhpho;
 use App\Tindang;
 use App\User;
@@ -11,13 +12,11 @@ use Carbon\Carbon;
 use Debugbar;
 use Illuminate\Support\Facades\Auth;
 use Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class SupportController extends Controller
 {
-
     #region ajax for admin page
 
     public function addMoney()
@@ -357,6 +356,39 @@ class SupportController extends Controller
         }
     }
 
+    // Use for updating star rating
+    public function starRating()
+    {
+        if(Request::ajax()){
+            $taixe_id =  Request::get('tindang_taixe_id');
+            $point = request("point");
+
+            $check = false;
+            foreach(Auth::user()->rate_taixes as $item)
+                if( $taixe_id == $item['id']) {
+                    $check = true;
+                }
+
+            if($check){
+                $temp = Taixe::find($taixe_id);
+                return ["error", $temp];
+            }
+
+            Auth::user()->rate_taixes()->attach($taixe_id);
+
+            $temp = Taixe::find($taixe_id);
+
+            $temp["ratecount"] = $temp["ratecount"] + 1;
+            $temp["ratepoint"] = ( $temp["ratepoint"] * ( $temp["ratecount"] - 1) + $point )/ $temp["ratecount"];
+
+            // 2 precision of float number
+            $temp['ratepoint'] = round($temp['ratepoint'], 2);
+
+            $temp->save();
+
+            return $temp;
+        };
+    }
     public function trogiup()
     {
         if (Request::ajax()) {

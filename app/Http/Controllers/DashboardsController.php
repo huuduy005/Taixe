@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Loaitin;
 use App\Tindang;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Debugbar;
+
 class DashboardsController extends Controller
 {
     public function __construct()
@@ -24,29 +27,25 @@ class DashboardsController extends Controller
      */
     public function user()
     {
-        if(Auth::user()->is('admin')){
+        /**
+         * If admin is redirect to homepage
+         */
+        if (Auth::user()->is('admin')) {
             return redirect('/admin');
         }
 
-        $tindang_saves = Auth::user()->save_tindangs()
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        $result = $this->typeOfTinluu();
+
+        $tindang_saves = $result[0];
+        $has_tin_dv = $result[1];
 
 
-        $tin_dichvus = DB::table('tindangs')
-            ->select('tindangs.*', 'users.hoten', 'users.SDT')
-            ->join('users', 'tindangs.user_id', '=', 'users.id')
-            ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
-            ->where('users.id', '=', Auth::user()->id)
-            ->where('loaitins.tenLT', '=', "Dịch vụ")
-            ->where('tindangs.status', '=', true)
-            ->orderBy("ngaydang", "desc")
-            ->paginate(5);
+        $tin_dichvus = $this->tinDichvusOfUser();
 
 
         $tindangs = DB::table('tindangs')
             ->select('tindangs.*', 'users.hoten', 'users.SDT')
-            ->join('users', 'tindangs.user_id', '=',  'users.id')
+            ->join('users', 'tindangs.user_id', '=', 'users.id')
             ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
             ->orderBy('ngaydang', 'desc')
             ->where('users.id', '=', Auth::user()->id)
@@ -54,7 +53,46 @@ class DashboardsController extends Controller
             ->where('loaitins.tenLT', '<>', "Dịch vụ")
             ->paginate(5);
 
+        return view('dashboard', compact('tindangs', 'tindang_saves', 'tin_dichvus', 'has_tin_dv'));
+    }
 
-        return view('dashboard', compact('tindangs', 'tindang_saves', 'tin_dichvus'));
+    protected function typeOfTinluu()
+    {
+        $has_tin_dv = false;
+
+        if (isset($_REQUEST['loaitin_id'])) {
+            $loaitin_id = $_REQUEST['loaitin_id'];
+            $tindang_saves = Auth::user()->save_tindangs()
+                ->where('loaitin_id', $loaitin_id)
+                ->where('status', true)
+                ->orderBy('ngaydang', 'desc')
+                ->paginate(5);
+
+            if (Loaitin::find($loaitin_id)->tenLT == "Dịch vụ") {
+                $has_tin_dv = true;
+            }
+            return [$tindang_saves, $has_tin_dv];
+        }
+
+        $loaitin_id = Loaitin::first()->id;
+        $tindang_saves = Auth::user()->save_tindangs()
+            ->where('loaitin_id', $loaitin_id)
+            ->where('status', true)
+            ->orderBy('ngaydang', 'desc')
+            ->paginate(5);
+
+        return [$tindang_saves, $has_tin_dv];
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function tinDichvusOfUser()
+    {
+        $tin_dichvus = Loaitin::where("tenLT", "Dịch vụ")->first()
+            ->tindangs()->with('user.taixe.loaixe')->where('user_id', Auth::user()->id)
+            ->orderBy("ngaydang", "desc")
+            ->paginate(5);
+        return $tin_dichvus;
     }
 }

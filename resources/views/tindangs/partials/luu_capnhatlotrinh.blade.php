@@ -1,7 +1,7 @@
 <div class="col-md-1 text-right" style="position: fixed">
     @if(Auth::check())
         @if(Auth::user()->id == $tindang->user->id)
-            @if(isset($taixe))
+            @if($tindang->loaitin->tenLT == "Tìm xe")
                 <a href="#" title="Cập nhật lộ trình" class="capnhat_lotrinh">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"
                                   style="font-size: 25px; color: #337ab7"></span>

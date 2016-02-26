@@ -98,7 +98,7 @@
 
 @include('partials.script_style.money_format_js')
 <script type="text/javascript">
-    $("#giave").change(function(){
+    $("#giave").keydown(function(){
         var value = $(this).val();
         $(this).number( true, 0, ' ', '.');
     });

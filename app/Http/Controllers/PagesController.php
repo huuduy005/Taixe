@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Loaitin;
 use App\Taixe;
 use App\Tindang;
 use App\User_rate_taixe;
@@ -16,66 +17,23 @@ use Request;
 use Debugbar;
 class PagesController extends Controller
 {
-
-    private $taixes;
-
-    private $hanhkhaches;
-
-    protected $dichvus;
-
-
     public function dichvu()
     {
-        $this->dichvuList();
-
-        $tin_dichvus = $this->dichvus->paginate(10);
-
-        Debugbar::info($tin_dichvus->toArray());
+        $tin_dichvus = $this->tinDichvuList();
 
         return view('pages.dichvu', compact('tin_dichvus'));
 
     }
     public function trangchu()
     {
-        // Use for updating star rates
-        if(Request::ajax()){
-            $taixe_id =  Request::get('tindang_taixe_id');
-            $point = request("point");
+        $tindang_taixes = $this->tinTimxeList();
 
-            $check = false;
-            foreach(Auth::user()->rate_taixes as $item)
-                if( $taixe_id == $item['id']) {
-                    $check = true;
-                }
-
-            if($check){
-                $temp = Taixe::find($taixe_id);
-                return ["error", $temp];
-            }
-
-            Auth::user()->rate_taixes()->attach($taixe_id);
-
-            $temp = Taixe::find($taixe_id);
-
-            $temp["ratecount"] = $temp["ratecount"] + 1;
-            $temp["ratepoint"] = ( $temp["ratepoint"] * ( $temp["ratecount"] - 1) + $point )/ $temp["ratecount"];
-
-            // 2 precision of float number
-            $temp['ratepoint'] = round($temp['ratepoint'], 2);
-
-            $temp->save();
-
-            return $temp;
-        };
-
-
-        $this->timkhachList();
-        $this->timxeList();
+        $tindang_hanhkhaches = $this->tinTimkhachList();
 
         if(isset ( $_REQUEST['thanhphonoidi']) && isset ( $_REQUEST['thanhphonoiden']) && isset ( $_REQUEST['ngaykhoihanh'])){
 
             // use for filtering data followed search bar
-            $tindang_taixes = $this->taixes
+            $tindang_taixes = $tindang_taixes
                 ->where("thanhphonoidi", "=", request('thanhphonoidi'))
                 ->where("thanhphonoiden", "=", request('thanhphonoiden'))
                 ->where("ngaykhoihanh", "=", request('ngaykhoihanh'));
@@ -83,7 +41,7 @@ class PagesController extends Controller
 
             $tindang_taixes = $tindang_taixes->paginate(8);
 
-            $tindang_hanhkhaches = $this->hanhkhaches
+            $tindang_hanhkhaches = $tindang_hanhkhaches
                 ->where("thanhphonoidi", "=",  request('thanhphonoidi'))
                 ->where("thanhphonoiden", "=", request('thanhphonoiden'))
                 ->where("ngaykhoihanh", "=", request('ngaykhoihanh'));
@@ -98,8 +56,8 @@ class PagesController extends Controller
                 flash("flash_message1", "Kết quả 	&nbsp;: &nbsp;	&nbsp;<i>" . $count_taixe ."</i> &nbsp; tin tìm khách &nbsp;- &nbsp; <i>". $count_hanhkhach."</i> &nbsp; tin tìm xe" , "important");
             }
         } else{
-            $tindang_taixes = $this->taixes->paginate(8);
-            $tindang_hanhkhaches = $this->hanhkhaches->paginate(2);
+            $tindang_taixes = $tindang_taixes->paginate(8);
+            $tindang_hanhkhaches = $tindang_hanhkhaches->paginate(2);
         }
 
 
@@ -108,12 +66,12 @@ class PagesController extends Controller
 
     public function timxe()
     {
-        $this->timkhachList();
+        $tindang_taixes = $this->tinTimxeList();
 
         if(isset ( $_REQUEST['thanhphonoidi']) && isset ( $_REQUEST['thanhphonoiden']) && isset ( $_REQUEST['ngaykhoihanh'])){
 
             // use for filtering data followed search bar
-            $tindang_taixes = $this->taixes
+            $tindang_taixes = $tindang_taixes
                 ->where("thanhphonoidi", "=", request('thanhphonoidi'))
                 ->where("thanhphonoiden", "=", request('thanhphonoiden'))
                 ->where("ngaykhoihanh", "=", request('ngaykhoihanh'));
@@ -128,7 +86,7 @@ class PagesController extends Controller
                 flash("flash_message1", "Kết quả 	&nbsp;: &nbsp;	&nbsp;<i>" . $count_taixe ."</i>  &nbsp; tin tìm khách" , "important");
             }
         } else{
-            $tindang_taixes = $this->taixes->paginate(10);
+            $tindang_taixes = $tindang_taixes->paginate(10);
         }
 
         return view('pages.timxe', compact('tindang_taixes'));
@@ -136,11 +94,10 @@ class PagesController extends Controller
 
     public function timkhach()
     {
-        $this->timxeList();
+        $tindang_hanhkhaches = $this->tinTimkhachList();
         if(isset ( $_REQUEST['thanhphonoidi']) && isset ( $_REQUEST['thanhphonoiden']) && isset ( $_REQUEST['ngaykhoihanh'])){
 
-
-            $tindang_hanhkhaches = $this->hanhkhaches
+            $tindang_hanhkhaches = $tindang_hanhkhaches
                 ->where("thanhphonoidi", "=",  request('thanhphonoidi'))
                 ->where("thanhphonoiden", "=", request('thanhphonoiden'))
                 ->where("ngaykhoihanh", "=", request('ngaykhoihanh'));
@@ -155,24 +112,35 @@ class PagesController extends Controller
                 flash("flash_message1", "Kết quả 	&nbsp;: &nbsp;	&nbsp; <i>". $count_hanhkhach."</i> &nbsp; tin tìm xe" , "important");
             }
         } else{
-            $tindang_hanhkhaches = $this->hanhkhaches->paginate(10);
+            $tindang_hanhkhaches = $tindang_hanhkhaches->paginate(10);
         }
 
         return view('pages.timkhach', compact('tindang_hanhkhaches'));
     }
 
-
-    protected function dichvuList()
+    protected function tinDichvuList()
     {
-        $this->dichvus = DB::table('tindangs')
-            ->select('tindangs.*', 'users.hoten', 'users.SDT', 'users.hanhkhach')
+        $tin_dichvus = Loaitin::where("tenLT", "Dịch vụ")->first()
+            ->tindangs()->with('user.taixe.loaixe')
+            ->orderBy("ngaydang", "desc")
+            ->paginate(5);
+        return $tin_dichvus;
+    }
+
+
+    protected function tinTimkhachList()
+    {
+        $tindang_hanhkhaches = DB::table('tindangs')
+            ->select('tindangs.*', 'users.hoten', 'users.SDT')
             ->join('users', 'tindangs.user_id', '=', 'users.id')
             ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
-            ->where('loaitins.tenLT', '=', "Dịch vụ")
+            ->where('loaitins.tenLT', '=', "Tìm khách")
             ->where('tindangs.status', '=', true)
             ->orderBy("ngaydang", "desc");
+        return $tindang_hanhkhaches;
     }
-    protected function timkhachList()
+
+    protected function tinTimxeList()
     {
         $order_by = "ngaydang";
         $sort = "desc";
@@ -183,26 +151,16 @@ class PagesController extends Controller
             $order_by = "giave";
         }
 
-        $this->taixes = DB::table('tindangs')
+        $tindang_taixes = DB::table('tindangs')
             ->select('tindangs.*', 'users.hoten', 'users.SDT', 'loaixes.tenLX', 'taixes.id as taixe_id', 'taixes.ratepoint', 'taixes.ratecount')
             ->join('users', 'tindangs.user_id', '=', 'users.id')
             ->join('taixes', 'users.id', '=', 'taixes.user_id')
             ->join('loaixes', 'taixes.loaixe_id', '=', 'loaixes.id')
             ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
-            ->where('loaitins.tenLT', '=', "Tìm khách")
-            ->where('tindangs.status', '=', true)
-            ->orderBy($order_by, $sort);
-    }
-
-    protected function timxeList()
-    {
-        $this->hanhkhaches = DB::table('tindangs')
-            ->select('tindangs.*', 'users.hoten', 'users.SDT')
-            ->join('users', 'tindangs.user_id', '=', 'users.id')
-            ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
             ->where('loaitins.tenLT', '=', "Tìm xe")
             ->where('tindangs.status', '=', true)
-            ->orderBy("ngaydang", "desc");
+            ->orderBy($order_by, $sort);
+        return $tindang_taixes;
     }
 
 
