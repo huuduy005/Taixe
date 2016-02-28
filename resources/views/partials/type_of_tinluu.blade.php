@@ -5,7 +5,7 @@
 
 
 <div class="row">
-    <select id="type" class="form-control"
+    <select id="type" class="form-control typeOfTinLuu"
             style="width: 15%; float: right;margin-right: 14px; margin-top: 10px; font-weight: normal; font-size: 12px">
         @foreach($loaitins as $loaitin)
                 <option value="{{ $loaitin->id }}"

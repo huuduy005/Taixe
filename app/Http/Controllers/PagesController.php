@@ -122,6 +122,7 @@ class PagesController extends Controller
     {
         $tin_dichvus = Loaitin::where("tenLT", "Dịch vụ")->first()
             ->tindangs()->with('user.taixe.loaixe')
+            ->where('tindangs.status', '=', true)
             ->orderBy("ngaydang", "desc")
             ->paginate(5);
         return $tin_dichvus;

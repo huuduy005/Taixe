@@ -122,7 +122,6 @@ class TindangsController extends Controller
     public function show(Tindang $tindang)
     {
         $taixe = $tindang->user->taixe;
-
         if (is_null($taixe)) {
             return view('tindangs.chitiet', compact('tindang'));
         } else {

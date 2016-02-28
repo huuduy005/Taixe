@@ -13,7 +13,11 @@
     @include('partials.timkhach')
     <div class="text-right">
         @if(isset($tindang_taixes))
-            {!! $tindang_taixes->render() !!}
+            @if($tindang_taixes->count() > 8)
+                {!! $tindang_taixes->render() !!}
+            @else
+                {!! $tindang_hanhkhaches->render() !!}
+            @endif
         @else
             {!! $tindang_hanhkhaches->render() !!}
         @endif

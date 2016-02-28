@@ -92,6 +92,7 @@ class DashboardsController extends Controller
         $tin_dichvus = Loaitin::where("tenLT", "Dịch vụ")->first()
             ->tindangs()->with('user.taixe.loaixe')->where('user_id', Auth::user()->id)
             ->orderBy("ngaydang", "desc")
+            ->where('status', true)
             ->paginate(5);
         return $tin_dichvus;
     }
