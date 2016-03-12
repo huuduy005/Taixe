@@ -1,10 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container" style="margin-right: 5px">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
+    <div class="container-fluid" style="margin-right: 5px">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#div-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -12,29 +9,28 @@
             <a class="navbar-brand" href="{{ action('PagesController@trangchu') }}">Trang chủ</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="div-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden">
                     <a href="#page-top"></a>
                 </li>
-                <li class="page-scroll nav-timxe">
+                <li class="nav-timxe">
                     <a href="{{ action('PagesController@timxe') }}">Tìm xe</a>
                 </li>
-                <li class="page-scroll nav-timkhach">
+                <li class="nav-timkhach">
                     <a href="{{ action('PagesController@timkhach') }}">Tìm khách</a>
                 </li>
 
-                <li class="page-scroll">
+                <li>
                     <a href="#">Tin tức</a>
                 </li>
-                <li class="page-scroll nav-dichvu">
+                <li class="nav-dichvu">
                     <a href="{{action('PagesController@dichvu')}}">Dịch vụ</a>
                 </li>
-                <li class="page-scroll">
+                <li>
                     <a href="#">Liên hệ</a>
                 </li>
-                <li class="page-scroll nav-dangtin">
+                <li class=" nav-dangtin">
                     <a href="{{ action('TindangsController@create') }}">Đăng tin</a>
                 </li>
 
@@ -64,9 +60,7 @@
                 @endif
             </ul>
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
 </nav>
 
 <style>
