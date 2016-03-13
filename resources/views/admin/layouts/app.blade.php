@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
       <link href="{{ asset("css/admin.css") }}" rel="stylesheet" />
-      <link href="{{ asset("css/libs.css") }}" rel="stylesheet" />
-      <script src="{{asset("js/all.js")}}"></script>
-      <script src="{{asset("js/libs.js")}}"></script>
+      <script src="{{asset("js/site.js")}}"></script>
   </head>
 
   <body>

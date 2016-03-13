@@ -2,12 +2,12 @@
     @foreach($tindang_taixes as $tindang)
         <table class="list_trangchu table table-responsive table{{$tindang->id}}">
             <tr>
-                <td width="250">
+                <td>
                     <table class="table-responsive">
                         <tr>
                             <td rowspan="4" width="100">
                                 <div class="img_avatar">
-                                    <img src="images/cab.jpg" width="60" height="60" class="img-responsive img-rounded img1 ">
+                                    <img src="images/cab.jpg" width="60" height="60" class="img-responsive img-rounded img1">
                                 </div>
                             </td>
                             <td width="80"><strong>Họ tên: </strong></td>
@@ -26,14 +26,14 @@
                         </tr>
                     </table>
                 </td>
-                <td width="500" align="center">
+                <td align="center">
                     <p class="value_lotrinh text-center"><i>{{$tindang->noidi}} - {{ $tindang->thanhphonoidi }} <font color="red">-</font> {{$tindang->noiden}} - {{ $tindang->thanhphonoiden }}</i></p>
                     <p class="value_giokhoihanh">
                         <font color="blue">{{ $tindang->giokhoihanh }} - {{ $tindang->ngaykhoihanh }}</font>
                     </p>
                     <a href="/tindangs/{{$tindang->id}}" class="chitiet_dixe border_radius">>Xem thông tin chi tiết ...</a>
                 </td>
-                <td width="253">
+                <td>
                     @include('partials.option_tindang', ['tindang' => $tindang])
                     <p>&nbsp;</p>
                     <div class="col-sm-4" style="padding-top: 7px">Giá vé:</div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Ngày đăng:</div>
-                        <div class="col-sm-7">{{ date_format(date_create($tindang->ngaydang), 'H:i:s - m/d/Y') }}</div>
+                        <div class="col-sm-7">{{ date_format(date_create($tindang->ngaydang), 'H:i:s - d/m/Y') }}</div>
                     </div>
                 </td>
             </tr>

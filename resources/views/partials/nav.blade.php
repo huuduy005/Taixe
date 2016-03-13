@@ -1,12 +1,13 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid" style="margin-right: 5px">
-        <div class="navbar-header">
+    <div class="container-fluid">
+        <div class="navbar-header" style="margin-left: 4%">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#div-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ action('PagesController@trangchu') }}">Trang chủ</a>
+            <a href="{{ action('PagesController@trangchu') }}"><img class="img img-responsive navbar-brand img-brand" src="{{asset("images/steering_wheel.png")}}" ></a>
+            <a class="navbar-brand" href="{{ action('PagesController@trangchu') }}"><font size="5">TRANG CHỦ</font></a>
         </div>
 
         <div class="collapse navbar-collapse" id="div-collapse">
@@ -15,35 +16,32 @@
                     <a href="#page-top"></a>
                 </li>
                 <li class="nav-timxe">
-                    <a href="{{ action('PagesController@timxe') }}">Tìm xe</a>
+                    <a href="{{ action('PagesController@timxe') }}">TÌM XE</a>
                 </li>
                 <li class="nav-timkhach">
-                    <a href="{{ action('PagesController@timkhach') }}">Tìm khách</a>
+                    <a href="{{ action('PagesController@timkhach') }}">TÌM KHÁCH</a>
                 </li>
 
                 <li>
-                    <a href="#">Tin tức</a>
+                    <a href="#">TIN TỨC</a>
                 </li>
                 <li class="nav-dichvu">
-                    <a href="{{action('PagesController@dichvu')}}">Dịch vụ</a>
-                </li>
-                <li>
-                    <a href="#">Liên hệ</a>
+                    <a href="{{action('PagesController@dichvu')}}">DỊCH VỤ</a>
                 </li>
                 <li class=" nav-dangtin">
-                    <a href="{{ action('TindangsController@create') }}">Đăng tin</a>
+                    <a href="{{ action('TindangsController@create') }}">ĐĂNG TIN</a>
                 </li>
 
                 @if (Auth::guest())
-                    <li class="dangky_dangnhap"><a href="{{ url('/login') }}">Đăng nhập</a></li>
-                    <li class="dangky_dangnhap"><a href="{{ url('/register') }}">Đăng ký</a></li>
+                    <li class="nav-dangnhap"><a href="{{ url('/login') }}">ĐĂNG NHẬP</a></li>
+                    <li class="nav-dangky"><a href="{{ url('/register') }}">ĐĂNG KÝ</a></li>
                 @else
                     @if(Auth::user()->admin)
-                        <li class="dangky_dangnhap"><a class="hoten-nav" href="{{ url('/admin') }}"
+                        <li><a class="hoten-nav" href="{{ url('/admin') }}"
                                                        title="{{ Auth::user()->hoten }}">{{ Auth::user()->hoten }}</a>
                         </li>
                     @else
-                        <li class="dangky_dangnhap"><a class="hoten-nav" href="{{ url('/dashboard')}}"
+                        <li><a class="hoten-nav" href="{{ url('/dashboard')}}"
                                                        title="{{ Auth::user()->hoten }}">{{ Auth::user()->hoten }}</a>
                         </li>
                     @endif
@@ -52,9 +50,10 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="dangky_dangnhap dangxuat"><a href="{{ url('/logout') }}"><i
-                                            class="fa fa-btn fa-sign-out"></i>Đăng xuất</a></li>
+                        <ul class="dropdown-menu drop_dangxuat" role="menu">
+                            <li>
+                                <a href="{{ url('/logout') }}" class="a_dangxuat"><i class="fa fa-btn fa-sign-out"></i>Đăng xuất</a>
+                            </li>
                         </ul>
                     </li>
                 @endif
@@ -64,29 +63,53 @@
 </nav>
 
 <style>
+    .img-brand{
+      padding: 1px 0 1px 15px;
+    }
     .hoten-nav {
         white-space: nowrap;
-        width: 70px;
-        height: 22px;
+        width: 90px;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+    #div-collapse li:hover{
+        background: #77bb44;
+    }
+
+    #div-collapse li a:hover{
+        color: #fff!important;
+    }
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
+        background: #77bb33;
     }
 </style>
 
 <script>
     @if(Request::is('dangtin'))
-        $('.nav-dangtin').css({'background': '#ddd'});
+        $('.nav-dangtin').css({'background': '#77bb33'});
     @endif
 
     @if(Request::is('timkhach'))
-        $('.nav-timkhach').css({'background': '#ddd'});
+        $('.nav-timkhach').css({'background': '#77bb33'});
     @endif
 
     @if(Request::is('timxe'))
-        $('.nav-timxe').css({'background': '#ddd'});
+        $('.nav-timxe').css({'background': '#77bb33'});
     @endif
 
      @if(Request::is('dichvu'))
-        $('.nav-dichvu').css({'background': '#ddd'});
+        $('.nav-dichvu').css({'background': '#77bb33'});
+    @endif
+
+    @if(Request::is('dashboard'))
+        $('.hoten-nav').css({'background': '#77bb33'});
+    @endif
+
+    @if(Request::is('login'))
+        $('.nav-dangnhap').css({'background': '#77bb33'});
+    @endif
+
+    @if(Request::is('register'))
+        $('.nav-dangky').css({'background': '#77bb33'});
     @endif
 </script>

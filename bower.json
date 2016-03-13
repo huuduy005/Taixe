@@ -1,18 +1,20 @@
 {
   "name": "Taixe.com",
-  "description": "",
-  "main": "",
   "authors": [
     "Nguyễn Văn Toàn <toanthree@gmail.com>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/toanthree/Taixe",
-  "moduleType": [],
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "*",
+    "bootstrap": "*",
+    "font-awesome": "*",
+    "sweetalert":"*"
+  }
 }

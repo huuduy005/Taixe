@@ -1,0 +1,161 @@
+
+body {
+    word-wrap: break-word;
+    font-size: 12px;
+}
+
+.info_account {
+    font-size: 15px;
+}
+
+#search {
+    margin-left: 0%;
+    width: 100%;
+    padding: 10px 0 10px 0;
+    border: 1px solid #eeeeee;
+    margin-bottom: 8px;
+    border-radius: 20px;
+}
+
+.footer-above {
+    height: 150px;
+    padding-top: 15px;
+}
+
+.footer-col a {
+    color: #fff;
+    font-size: 12px;
+}
+
+footer .footer-above {
+    background: #83be54;
+}
+
+footer .footer-below {
+    background: #77aa44;
+    padding: 10px;
+}
+
+footer h4, footer h5 {
+    color: white;
+    font-weight: bold;
+}
+
+footer a {
+    font-weight: bold;
+}
+
+.btn-social {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 20px !important;
+    line-height: 45px;
+}
+
+.btn-outline {
+    margin-top: 15px;
+    border: solid 2px #fff;
+    font-size: 20px;
+    color: #fff;
+    background: 0 0;
+    transition: all .3s ease-in-out;
+}
+
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+    border: solid 2px #fff;
+    color: #18bc9c;
+    background: #fff;
+}
+
+#app-layout {
+    padding-bottom: 0px !important;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+body a {
+    font-weight: bold;
+}
+
+.navbar-fixed-top a {
+    color: white !important;
+}
+
+.navbar-fixed-top {
+    background: #83be54;
+    padding-bottom: 0px !important;
+}
+
+
+.glyphicon-resize-horizontal {
+    padding-top: 7px;
+    font-size: 30px
+}
+
+.select-bar, #khoihanh {
+    float: right;
+    width: 70% !important;
+    font-size: 12px !important;
+}
+
+.chitiet_dixe {
+    padding: 8px;
+    background: #ff7900;
+    color: white;
+}
+
+/* use for timepicker*/
+.icon-chevron-up {
+    background: black;
+}
+
+.table {
+    margin-bottom: 0px !important;
+}
+
+.table th, .table td {
+    border-top: none !important;
+}
+
+
+.list_trangchu {
+    width: 100%;
+    border-radius: 20px !important;
+}
+
+.list_trangchu td {
+    padding-left: 2px;
+    padding-top: 2px;
+}
+
+.list_trangchu:hover {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.border_radius {
+    border-radius: 5px;
+}
+
+.chitiet_dixe {
+    padding: 3px 17px;
+    background-color: #83be54;
+    color: white;
+    font-weight: bold;
+}
+
+.chitiet_dixe:hover {
+    color: white !important;
+}
+
+.img_slideshow {
+    height: 300px;
+    width: 100%;
+}

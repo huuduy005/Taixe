@@ -2,9 +2,11 @@
 @section('content')
 
     @include('partials.search-bar')
-
     {{--slide show would be here--}}
-    <img src="images/car.jpg" class="img-responsive img-rounded img_slideshow">
+
+   @include('partials.carousel')
+
+
     @include('partials.filter_tieuchi')
     @include('flash')
 
@@ -13,7 +15,8 @@
     @include('partials.timkhach')
     <div class="text-right">
         @if(isset($tindang_taixes))
-            @if($tindang_taixes->count() > 8)
+            @if($tindang_taixes->count() >= 8)
+
                 {!! $tindang_taixes->render() !!}
             @else
                 {!! $tindang_hanhkhaches->render() !!}

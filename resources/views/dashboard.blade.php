@@ -13,9 +13,8 @@
             <hr>
             <div class="row col-sm-offset-1">
                 <div class="col-sm-2">
-                    <div class="row"><br></div>
-                    <i class="fa fa-money" style="font-size: 25px; color: red"><i>
-                            &nbsp;{{ number_format(Auth::user()->soduTK, null, ',', '.' )}} đ</i></i>
+                    <img width="60%" src="{{asset("images/purse.png")}}" class="img img-responsive">
+                           <font color="red" size="5" style="font-weight: bold">{{ number_format(Auth::user()->soduTK, null, ',', '.' )}} đ</font>
                 </div>
                 <div class="col-sm-5">
                     <div class="row  form-group">
@@ -420,7 +419,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-right"> {!! $tindangs->render() !!}</div>
+            <div class="text-right"> {!! $tindang_saves->render() !!}</div>
         </div>
 
         <div role="tabpanel" class="tab-pane" id="bai_dichvu">

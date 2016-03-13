@@ -1,0 +1,27 @@
+.a_dangxuat{
+    background: #83be54;
+    padding-right: 0px!important;
+}
+.drop_dangxuat{
+    padding: 0px;
+    border: 0px;
+    min-width: 120px!important;
+}
+.drop_dangxuat li a:hover{
+    background-color: #77bb33;
+}
+.list_trangchu{
+    font-size: 12px;
+    font-weight: bold;
+}
+.value_giokhoihanh, .value_giave, .value_lotrinh{
+    font-size: 15px;
+}
+.option-menu{
+    padding: 0px;
+    border: 0;
+    margin: 0px;
+}
+.option-menu li a:hover{
+    background: green;
+}

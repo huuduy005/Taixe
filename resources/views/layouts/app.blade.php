@@ -16,12 +16,11 @@
     <link href="{{ asset("fonts/font_app.css") }}" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
-    <link href="{{ asset("css/all.css") }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset("css/libs.css") }}">
-    <link rel="stylesheet" href="{{ asset("css/site.css") }}">
+    <link href="{{ asset("css/site.css") }}" rel="stylesheet">
+    <link href="{{ asset("css/temp.css") }}" rel="stylesheet">
 
-    <script src="{{ asset("js/all.js") }}"></script>
-    <script src="{{ asset("js/libs.js") }}"></script>
+
+    <script src="{{ asset("js/site.js") }}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,25 +33,30 @@
         body {
             font-family: 'Arial';
         }
-
-        .fa-btn {
+        .trogiup span{
+            font-size: 20px; margin-right:2%
+        }
+        .fa-btn{
             margin-right: 6px;
         }
     </style>
 </head>
 <body id="app-layout">
+
 <!-- Navigation -->
 @include('partials.nav')
-<div class="row" style="height: 60px"></div>
+
+<div class="row" style="height: 35px"></div>
 <div class="row text-right">
     <a href="#" class="trogiup" title="Trợ giúp">
-        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"
-              style="font-size: 20px; margin-right:2%"></span>
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
     </a>
 </div>
-<div class="container-fluid" style="padding: 0 5% 0 5%">
+
+<div class="container-fluid" style="padding: 0 5% 0 5%; min-height: 425px">
     @yield('content')
 </div>
+
 <!--Footer-->
 @include('partials.footer')
 
@@ -76,7 +80,10 @@
                                 "</div>"
 
                     })
-                    str = str + "<div class='row'><hr>Làm mới: <font color='red'><b>&nbsp;&nbsp;&nbsp;Giá loại tin / 2</b></font></div><hr>";
+                    str = str + "<hr><div class='row' style='margin-left: 29%'>"+
+                                "<div class='col-sm-4 text-left'>Làm mới: </div>" +
+                                "<div class='col-sm-5 text-center'>" +
+                                "<font color='red'><b>Giá loại tin / 2</b></font></div></div><hr>";
                     swal({
                         title: "Trợ giúp!",
                         text: str,
