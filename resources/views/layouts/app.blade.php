@@ -20,6 +20,8 @@
     <link href="{{ asset("css/temp.css") }}" rel="stylesheet">
 
 
+    @yield('css')
+
     <script src="{{ asset("js/site.js") }}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -31,7 +33,8 @@
 
     <style>
         body {
-            font-family: 'Arial';
+           /*font-family: 'Arial';*/
+            font-family: 'Source Sans Pro',sans-serif;
         }
         .trogiup span{
             font-size: 20px; margin-right:2%
@@ -40,6 +43,7 @@
             margin-right: 6px;
         }
     </style>
+
 </head>
 <body id="app-layout">
 
@@ -59,7 +63,7 @@
 
 <!--Footer-->
 @include('partials.footer')
-
+@yield('scripts')
 </body>
 </html>
 <script>

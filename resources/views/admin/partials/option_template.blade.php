@@ -1,4 +1,4 @@
-<h1 class="text-center">{{ $title }}</h1>
+<h2 class="text-center">{{ $title }}</h2>
 <hr>
 <button class="btn btn-primary button-chontatca" style="margin-left: 10%">Chọn tất cả</button>
 <button class="btn btn-danger button-xoachon">Xóa ô chọn</button>

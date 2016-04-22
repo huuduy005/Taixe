@@ -12,12 +12,12 @@
   <!-- container section start -->
   <section id="container" class="">
       <header class="header dark-bg row">
-          <div style="height: 61px; width: 90%;float: left">
-            <a href="#" class="logo" style="font-size: 17px">Quản lý danh mục</a>
+          <div style="height: 61px; width: 90%;float: left; padding-left: 5px">
+              <a href="#" class="logo" style="font-size: 17px">QUẢN LÝ DANH MỤC</a>
           </div>
-           <div  class="admin-nav border-nav"><a href="/admin" class="admin-logout"><i>Admin</i></a></div>
+           <div  class="admin-nav border-nav"><a href="/admin" class="admin-logout"><i>admin</i></a></div>
             <div class="admin-nav">
-                <a href="/logout" class="admin-logout"><i>Log out</i></a>
+                <a href="/logout" class="admin-logout"><i>thoát</i></a>
             </div>
       </header>
 

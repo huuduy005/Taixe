@@ -127,7 +127,7 @@
                     <div class="col-sm-12"><b>Nội dung:</b></div>
                     <br/>
                     <br/>
-                    <div class="col-sm-12"> {{ $tindang->noidung }}</div>
+                    <div class="col-sm-12"> {!! $tindang->noidung !!} </div>
 
                     <div class="col-md-12">&nbsp;</div>
                 </div>

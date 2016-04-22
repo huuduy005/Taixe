@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @include('admin.partials.option_template', ['title' => 'Quản lý loại tin'])
+    @include('admin.partials.option_template', ['title' => 'QUẢN LÝ LOẠI TIN'])
 
     <div class="row admin-div-tinhthanh">
         <hr>

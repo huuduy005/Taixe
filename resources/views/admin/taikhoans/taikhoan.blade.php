@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <h1 class="text-center">Quản lý tài khoản</h1>
+    <h2 class="text-center">QUẢN LÝ TÀI KHOẢN</h2>
     <hr>
     <button class="btn btn-primary button-chontatca" style="margin-left: 10%">Chọn tất cả</button>
     <button class="btn btn-danger button-xoachon" >Xóa ô chọn</button>

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @include('admin.partials.option_template', ['title' => 'Quản lý tỉnh, thành phố'])
+    @include('admin.partials.option_template', ['title' => 'QUẢN LÝ TỈNH, THÀNH PHỐ'])
 
     <div class="row admin-div-tinhthanh">
         <hr>

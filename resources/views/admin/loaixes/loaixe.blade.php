@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    @include('admin.partials.option_template', ['title' => 'Quản lý loại xe'])
+    @include('admin.partials.option_template', ['title' => 'QUẢN LÝ LOẠI XE'])
     <div class="row admin-div-tinhthanh">
         <hr>
         <div class="col-sm-1"></div>
