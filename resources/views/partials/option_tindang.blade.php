@@ -7,10 +7,10 @@
     @endforeach
     @if($check == true)
         <div class="dropdown" style="float: right">
-            <a class="dropdown-toggle" data-toggle="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" title="Thao tác">
                 <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
             </a>
-            <ul class="dropdown-menu option-menu" role="menu">
+            <ul class="dropdown-menu option-menu pull-left" role="menu">
                 <li><a role="menuitem" tabindex="-1"
                        href="/tindangs/{{ $tindang->id }}/sua">Sửa</a></li>
                 <li><a role="menuitem" tabindex="-1" class="xoa_tindang"

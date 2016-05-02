@@ -17,12 +17,11 @@
 
     <!-- Styles -->
     <link href="{{ asset("css/site.css") }}" rel="stylesheet">
-    <link href="{{ asset("css/temp.css") }}" rel="stylesheet">
-
-
+    {{--<link href="{{ asset("css/temp.css") }}" rel="stylesheet">--}}
     @yield('css')
 
     <script src="{{ asset("js/site.js") }}"></script>
+    {{--<script src="{{asset("js/temp.js")}}"></script>--}}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,19 +30,6 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <style>
-        body {
-           /*font-family: 'Arial';*/
-            font-family: 'Source Sans Pro',sans-serif;
-        }
-        .trogiup span{
-            font-size: 20px; margin-right:2%
-        }
-        .fa-btn{
-            margin-right: 6px;
-        }
-    </style>
-
 </head>
 <body id="app-layout">
 
@@ -51,10 +37,15 @@
 @include('partials.nav')
 
 <div class="row" style="height: 35px"></div>
-<div class="row text-right">
-    <a href="#" class="trogiup" title="Trợ giúp">
-        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-    </a>
+<div class="row">
+    <div class="pull-left" style="width: 96%">
+            @include('partials.hot_post')
+    </div>
+    <div class="text-left pull-right" style="width: 3%;">
+        <a href="#" class="trogiup" data-placement="left" data-toggle="tooltip" title="Trợ giúp">
+            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+        </a>
+    </div>
 </div>
 
 <div class="container-fluid" style="padding: 0 5% 0 5%; min-height: 425px">
@@ -63,38 +54,43 @@
 
 <!--Footer-->
 @include('partials.footer')
-@yield('scripts')
+@yield('script')
 </body>
 </html>
 <script>
-    $('.trogiup').click(function () {
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
 
-        $.get('/trogiup',
-                function (data) {
-                    str = "Tên loại tin và giá tiền";
-                    $.each(data, function (key, value) {
-                        str = str +
-                                "<hr><div class='row' style='margin-left: 29%'> " +
-                                "<div class='col-sm-4 text-left'>" +
-                                value['tenLT'] +
-                                ":</div>" +
-                                "<div class='col-sm-3 text-center'>" +
-                                "<font color='red'><b>" + value['giatien'] + "đ</b></font><br>" +
-                                "</div>" +
-                                "</div>"
+        $('.trogiup').click(function () {
 
-                    })
-                    str = str + "<hr><div class='row' style='margin-left: 29%'>"+
+            $.get('/trogiup',
+                    function (data) {
+                        str = "Tên loại tin và giá tiền";
+                        $.each(data, function (key, value) {
+                            str = str +
+                                    "<hr style='margin: 10px 0 10px 0'><div class='row' style='margin-left: 29%'> " +
+                                    "<div class='col-sm-4 text-left'>" +
+                                    value['tenLT'] +
+                                    ":</div>" +
+                                    "<div class='col-sm-3 text-center'>" +
+                                    "<font color='red'><b>" + value['giatien'] + "đ</b></font><br>" +
+                                    "</div>" +
+                                    "</div>"
+
+                        })
+                        str = str + "<hr style='margin: 10px 0 10px 0'><div class='row' style='margin-left: 29%'>" +
                                 "<div class='col-sm-4 text-left'>Làm mới: </div>" +
                                 "<div class='col-sm-5 text-center'>" +
-                                "<font color='red'><b>Giá loại tin / 2</b></font></div></div><hr>";
-                    swal({
-                        title: "Trợ giúp!",
-                        text: str,
-                        html: true,
-                        animation: "slide-from-top",
-                        timer: 5000,
-                    });
-                })
+                                "<font color='red'><b>Giá loại tin / 2</b></font></div></div><hr style='margin: 10px 0 10px 0'>";
+                        swal({
+                            title: "Trợ giúp!",
+                            text: str,
+                            html: true,
+                            animation: "slide-from-top",
+                            confirmButtonText: "Đồng ý",
+                            //timer: 5000,
+                        });
+                    })
+        });
     });
 </script>

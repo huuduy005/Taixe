@@ -53,6 +53,8 @@ class DashboardsController extends Controller
             ->where('loaitins.tenLT', '<>', "Dịch vụ")
             ->paginate(5);
 
+
+
         return view('dashboard', compact('tindangs', 'tindang_saves', 'tin_dichvus', 'has_tin_dv'));
     }
 
@@ -64,7 +66,7 @@ class DashboardsController extends Controller
             $loaitin_id = $_REQUEST['loaitin_id'];
             $tindang_saves = Auth::user()->save_tindangs()
                 ->where('loaitin_id', $loaitin_id)
-                ->where('status', true)
+                /*->where('status', true)*/
                 ->orderBy('ngaydang', 'desc')
                 ->paginate(5);
 
@@ -77,7 +79,7 @@ class DashboardsController extends Controller
         $loaitin_id = Loaitin::first()->id;
         $tindang_saves = Auth::user()->save_tindangs()
             ->where('loaitin_id', $loaitin_id)
-            ->where('status', true)
+            /*->where('status', true)*/
             ->orderBy('ngaydang', 'desc')
             ->paginate(5);
 

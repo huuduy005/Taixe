@@ -1,0 +1,9 @@
+.main-header .sidebar-toggle{
+    padding: 19px 15px;
+}
+.main-header .sidebar-toggle:hover{
+    color: #3c8dbc;
+}
+.box-body{
+    padding-bottom: 5px;
+}

@@ -104,8 +104,8 @@
                         <br>
                     @endif
                     <div class="row">
-                        <div class="col-sm-2"><b>Lộ trình:</b></div>
-                        <div class="col-sm-10" style="font-size: 15px; font-weight: bold"> {{ $tindang->noidi }}
+                        <div class="col-sm-12"><b>Lộ trình:</b></div>
+                        <div class="col-sm-12 text-center" style="font-size: 15px; font-weight: bold"> {{ $tindang->noidi }}
                             - {{ $tindang->thanhphonoidi }} --> {{ $tindang->noiden }}
                             - {{ $tindang->thanhphonoiden }}</div>
 
@@ -127,7 +127,7 @@
                     <div class="col-sm-12"><b>Nội dung:</b></div>
                     <br/>
                     <br/>
-                    <div class="col-sm-12"> {!! $tindang->noidung !!} </div>
+                    <div class="col-sm-12" style="padding-left: 8%"> {!! $tindang->noidung !!} </div>
 
                     <div class="col-md-12">&nbsp;</div>
                 </div>

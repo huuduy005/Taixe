@@ -9,7 +9,7 @@ var paths = {
 };
 
 
-elixir(function(mix) {
+elixir(function (mix) {
 
 
     mix.styles([
@@ -29,14 +29,25 @@ elixir(function(mix) {
         'bootstrap-datepicker.js',
         'bootstrap-timepicker.js',
         'star-rating.js',
+        'site.js'
     ], 'public/js/site.js');
 
     //concatenate file.css
     mix.styles([
-          'admin/bootstrap.min.css',
-          'admin/elegant-icons-style.css',
-          'admin/font-awesome.min.css',
-          'admin/style.css'
-        ],'public/css/admin.css');
+        '../../../' + paths.bootstrap + '/css/bootstrap.css',
+        'admin/font-awesome.min.css',
+        'admin/AdminLTE.min.css',
+        'admin/_all-skins.min.css',
+        '../../../' + paths.sweetalert + '/sweetalert.css',
+        'admin/site.css'
+    ], 'public/css/admin.css');
+
+    mix.scripts([
+        '../../../' + paths.jquery + '/jquery.js',
+        '../../../' + paths.bootstrap + '/js/bootstrap.js',
+        'admin/app.min.js',
+        '../../../' + paths.sweetalert + '/sweetalert-dev.js',
+        'site.js'
+    ], 'public/js/admin.js');
 
 });

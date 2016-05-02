@@ -7,6 +7,7 @@ use App\Loaixe;
 use App\Taixe;
 use App\Thanhpho;
 use App\Tindang;
+use App\Tintuc;
 use App\User;
 use Carbon\Carbon;
 use Debugbar;
@@ -18,7 +19,7 @@ use App\Http\Controllers\Controller;
 class SupportController extends Controller
 {
     #region ajax for admin page
-
+    // Add money for user
     public function addMoney()
     {
         if (Request::ajax()) {
@@ -33,6 +34,7 @@ class SupportController extends Controller
         }
     }
 
+    // Lock user account
     public function lock()
     {
         if (Request::ajax()) {
@@ -45,6 +47,7 @@ class SupportController extends Controller
         }
     }
 
+    // Unlock user account
     public function unlock()
     {
         if (Request::ajax()) {
@@ -57,20 +60,10 @@ class SupportController extends Controller
         }
     }
 
-    public function display()
+    // Show Tindang
+    public function showTindang()
     {
-        if (Request::ajax()) {
-            $id = Request::get('id');
-            $temp = Tindang::find($id);
 
-            $temp->status = false;
-
-            $temp->save();
-        }
-    }
-
-    public function undisplay()
-    {
         if (Request::ajax()) {
             $id = Request::get('id');
             $temp = Tindang::find($id);
@@ -81,262 +74,72 @@ class SupportController extends Controller
         }
     }
 
-
-    public function insert($model)
+    // Hide tin dang
+    public function hideTindang()
     {
         if (Request::ajax()) {
-            $tenTP = Request::get("tenTP");
-            switch ($model) {
-                case 'thanhpho':
-                    $temp = Thanhpho::create(['tenTP' => $tenTP]);
 
-
-                    $count = Thanhpho::all()->count();
-
-                    return ["insert-successfully", $temp, $count];
-                    break;
-
-                case 'loaixe':
-                    $temp = Loaixe::create(['tenLX' => $tenTP]);
-
-                    $count = Loaixe::all()->count();
-
-                    return ["insert-successfully", $temp, $count];
-                    break;
-
-                case 'loaitin':
-
-                    $tenLT = Request::get("tenLT");
-                    $giatien = Request::get("giatien");
-
-
-                    $temp = Loaitin::create(['tenLT' => $tenLT, 'giatien' => $giatien]);
-
-                    $count = Loaitin::all()->count();
-
-                    $temp1 = Loaitin::find($temp['id']);
-
-                    return ["insert-successfully", $temp1, $count];
-                    break;
-            }
-        }
-
-    }
-
-    public function delete($model)
-    {
-        if (Request::ajax()) {
-            $id = Request::get("id_xoa");
-            switch ($model) {
-                case 'thanhpho':
-                    Thanhpho::where('id', '=', $id)->delete();
-
-                    return "delete-successfully";
-                    break;
-
-                case 'loaixe':
-                    $loaixe = Loaixe::where('id', '=', $id)->first();
-
-                    if ($loaixe->taixes->isEmpty()) {
-
-                        $loaixe->delete();
-                        return "delete-successfully";
-                    }
-                    break;
-
-                case 'loaitin':
-                    $loaitin = Loaitin::where('id', '=', $id)->first();
-
-                    if ($loaitin->tindangs->isEmpty()) {
-
-                        $loaitin->delete();
-                        return "delete-successfully";
-                    }
-
-                    break;
-
-                case 'tindang':
-                    Tindang::where('id', '=', $id)->delete();
-
-                    return "delete-successfully";
-                    break;
-
-                case 'user':
-                    $user = User::where('id', '=', $id)->first();
-
-                    if ($user->rate_taixes->isEmpty() && $user->tindangs->isEmpty() && $user->save_tindangs->isEmpty()) {
-
-                        $user->delete();
-                        return "delete-successfully";
-                    }
-
-                    break;
-            }
-        }
-    }
-
-
-    public function delete_chosen($model)
-    {
-        if (Request::ajax()) {
-            $ids = Request::get("id_xoachon");
-
-            switch ($model) {
-                case 'thanhpho':
-                    foreach ($ids as $id) {
-                        Thanhpho::where('id', '=', $id)->delete();
-                    }
-
-                    return "delete-successfully";
-                    break;
-
-                case 'loaixe':
-                    foreach ($ids as $id) {
-                        Loaixe::where('id', '=', $id)->delete();
-                    }
-
-                    return "delete-successfully";
-                    break;
-
-                case 'loaitin':
-                    foreach ($ids as $id) {
-                        Loaitin::where('id', '=', $id)->delete();
-                    }
-
-                    return "delete-successfully";
-                    break;
-
-                case 'tindang':
-                    foreach ($ids as $id) {
-                        Tindang::where('id', '=', $id)->delete();
-                    }
-
-                    return "delete-successfully";
-                    break;
-
-                case 'user':
-                    $check = true;
-                    foreach ($ids as $id) {
-                        $user = User::where('id', '=', $id)->first();
-
-                        if ($user->rate_taixes->isEmpty() && $user->tindangs->isEmpty() && $user->save_tindangs->isEmpty()) {
-                            $user->delete();
-                        } else {
-                            $check = false;
-                        }
-                    }
-
-                    if ($check) return "delete-successfully";
-                    break;
-            }
-        }
-    }
-
-
-    public function find($model)
-    {
-        if (Request::ajax()) {
-            $tenTP = Request::get("tenTP");
-            switch ($model) {
-                case 'thanhpho':
-                    $temp = Thanhpho::where('tenTP', 'like', '%' . $tenTP . '%')->get();
-
-                    if (count($temp) == 0) {
-                        return ["null-data", null];
-                    }
-
-                    return ["find-successfully", $temp];
-                    break;
-                case 'loaixe':
-                    $temp = Loaixe::where('tenLX', 'like', '%' . $tenTP . '%')->get();
-
-                    if (count($temp) == 0) {
-                        return ["null-data", null];
-                    }
-
-                    return ["find-successfully", $temp];
-                    break;
-
-                case 'loaitin':
-                    $temp = Loaitin::where('tenLT', 'like', '%' . $tenTP . '%')->get();
-
-                    if (count($temp) == 0) {
-                        return ["null-data", null];
-                    }
-
-                    return ["find-successfully", $temp];
-                    break;
-            }
-        }
-    }
-
-
-    public function edit($model)
-    {
-        if (Request::ajax()) {
-            $id = Request::get("id_sua");
-            $new_tenTP = Request::get("new_tp");
-
-            switch ($model) {
-                case 'thanhpho':
-                    $temp = Thanhpho::find($id);
-                    $temp->tenTP = $new_tenTP;
-                    $temp->save();
-
-                    return ["edit-successfully", $temp->tenTP];
-                    break;
-
-                case 'loaixe':
-                    $temp = Loaixe::find($id);
-                    $temp->tenLX = $new_tenTP;
-                    $temp->save();
-
-                    return ["edit-successfully", $temp->tenLX];
-                    break;
-
-                case 'loaitin':
-                    $new_tien = Request::get("price");
-
-                    $temp = Loaitin::find($id);
-                    $temp->tenLT = $new_tenTP;
-                    $temp->giatien = $new_tien;
-                    $temp->save();
-
-                    return ["edit-successfully", $temp->tenLT, $temp->giatien];
-                    break;
-            }
-        }
-    }
-
-    public function cancel_update($model)
-    {
-        if (Request::ajax()) {
             $id = Request::get('id');
 
-            switch ($model) {
-                case 'thanhpho':
-                    $temp = Thanhpho::find($id);
+            $temp = Tindang::find($id);
 
-                    return $temp->tenTP;
-                    break;
-                case 'loaixe':
-                    $temp = Loaixe::find($id);
+            $temp->status = false;
 
-                    return $temp->tenLX;
-                    break;
+            $temp->save();
+        }
+    }
 
-                case 'loaitin':
-                    $temp = Loaitin::find($id);
+    // Show Tindang
+    public function showTintuc()
+    {
 
-                    return [$temp->tenLT, $temp->giatien];
-                    break;
-                    break;
-            }
+        if (Request::ajax()) {
+            $id = Request::get('id');
+            $temp = Tintuc::find($id);
+
+            $temp->status = true;
+
+            $temp->save();
+
+            return $temp;
+        }
+    }
+
+    // Hide tin dang
+    public function hideTintuc()
+    {
+        if (Request::ajax()) {
+
+            $id = Request::get('id');
+
+            $temp = Tintuc::find($id);
+
+            $temp->status = false;
+
+            $temp->save();
+
+            return $temp;
+        }
+    }
+
+    // Hide tin dang
+    public function hotTintuc()
+    {
+        if (Request::ajax()) {
+
+            $id = Request::get('id');
+
+            $val = Request::get('value');
+
+            $temp = Tintuc::find($id);
+
+            $temp->hot = $val=='true' ? 1 : 0;
+
+            $temp->save();
         }
     }
 
     /* end ajax for admin page */
-
     #endregion
 
     //for check status of user
@@ -403,6 +206,7 @@ class SupportController extends Controller
         }
 
     }
+
 
     public function loaixe()
     {

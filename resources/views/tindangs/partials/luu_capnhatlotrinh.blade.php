@@ -2,7 +2,7 @@
     @if(Auth::check())
         @if(Auth::user()->id == $tindang->user->id)
             @if($tindang->loaitin->tenLT == "Tìm xe")
-                <a href="#" title="Cập nhật lộ trình" class="capnhat_lotrinh">
+                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Cập nhật lộ trình" class="capnhat_lotrinh">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"
                                   style="font-size: 25px; color: #337ab7"></span>
                 </a>
@@ -29,7 +29,7 @@
                                         return false
                                     }
                                     setTimeout(function () {
-                                        $.get('/tindangs/ajax',
+                                        $.get('/save_tindang/ajax',
                                                 {
                                                     tindang_id: "{{ $tindang->id }}",
                                                     lotrinh: inputValue,
@@ -46,7 +46,7 @@
                 </script>
             @endif
         @else
-            <a href="#" class="save-tindang" title="Lưu tin đăng">
+            <a href="#" class="save-tindang" data-toggle="tooltip" data-placement="bottom" title="Lưu tin đăng">
                         <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"
                               style="font-size: 25px; color: #337ab7"></span>
             </a>
@@ -63,9 +63,11 @@
                 @if($check)
                     sweetAlert("Không thành công", "Bạn đã lưu tin này rồi", "error");
                 @else
-                        $.get('/tindangs/ajax',
+
+                        $.get('/save_tindang/ajax',
                         {tindang_id: "{{ $tindang->id }}", act: "luu"},
                         function (data) {
+                            console.log(data);
                             if (data == 'error') {
                                 sweetAlert("Không thành công", "Bạn đã lưu tin này rồi", "error");
                             } else {

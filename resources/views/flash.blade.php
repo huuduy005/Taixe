@@ -4,7 +4,7 @@
             title: "{!!  session('flash_message.title') !!}",
             text: "{!! session('flash_message.message') !!}",
             type: "{{ session('flash_message.level') }}",
-            timer: 1000,
+            timer: 2000,
             showConfirmButton: false
         });
     </script>
@@ -22,14 +22,15 @@
 @endif
 
 @if(Session::has('flash_message1.message'))
-    <div class="container">
         <div class="alert alert-success {{ Session::pull('flash_message1.flash_message_important')? 'alert-important' : '' }}"
              style="font-size: 14px">{!! Session::pull('flash_message1.message') !!}
             <button type='button' class='close' data-dismiss='alert'>×</button>
         </div>
-    </div>
 @endif
 
-<script>
-    $('div.alert').not('.alert-important').delay(2000).slideUp(300);
-</script>
+@if(Session::has(\App\Http\Controllers\Shared\Constants::$flash_error.'.message'))
+    <div class="alert alert-error {{ Session::pull(\App\Http\Controllers\Shared\Constants::$flash_error.'.flash_message_important')? 'alert-important' : '' }}"
+         style="font-size: 14px">{!! Session::pull(\App\Http\Controllers\Shared\Constants::$flash_error.'.message') !!}
+        <button type='button' class='close' data-dismiss='alert'>×</button>
+    </div>
+@endif

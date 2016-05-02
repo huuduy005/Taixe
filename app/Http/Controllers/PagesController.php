@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Controllers\Shared\Constants;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Loaitin;
@@ -39,7 +40,7 @@ class PagesController extends Controller
                 ->where("ngaykhoihanh", "=", request('ngaykhoihanh'));
             $count_taixe = $tindang_taixes->count();
 
-            $tindang_taixes = $tindang_taixes->paginate(8);
+            $tindang_taixes = $tindang_taixes->paginate(5);
 
             $tindang_hanhkhaches = $tindang_hanhkhaches
                 ->where("thanhphonoidi", "=",  request('thanhphonoidi'))
@@ -56,7 +57,7 @@ class PagesController extends Controller
                 flash("flash_message1", "Kết quả 	&nbsp;: &nbsp;	&nbsp;<i>" . $count_taixe ."</i> &nbsp; tin tìm khách &nbsp;- &nbsp; <i>". $count_hanhkhach."</i> &nbsp; tin tìm xe" , "important");
             }
         } else{
-            $tindang_taixes = $tindang_taixes->paginate(8);
+            $tindang_taixes = $tindang_taixes->paginate(5);
             $tindang_hanhkhaches = $tindang_hanhkhaches->paginate(2);
         }
 
@@ -77,7 +78,7 @@ class PagesController extends Controller
                 ->where("ngaykhoihanh", "=", request('ngaykhoihanh'));
             $count_taixe = $tindang_taixes->count();
 
-            $tindang_taixes = $tindang_taixes->paginate(10);
+            $tindang_taixes = $tindang_taixes->paginate(Constants::$paging_number);
 
 
             if( ( $count_taixe ) == 0){
@@ -86,7 +87,7 @@ class PagesController extends Controller
                 flash("flash_message1", "Kết quả 	&nbsp;: &nbsp;	&nbsp;<i>" . $count_taixe ."</i>  &nbsp; tin tìm khách" , "important");
             }
         } else{
-            $tindang_taixes = $tindang_taixes->paginate(10);
+            $tindang_taixes = $tindang_taixes->paginate(Constants::$paging_number);
         }
 
         return view('pages.timxe', compact('tindang_taixes'));
@@ -104,7 +105,7 @@ class PagesController extends Controller
 
             $count_hanhkhach = $tindang_hanhkhaches->count();
 
-            $tindang_hanhkhaches = $tindang_hanhkhaches->paginate(10);
+            $tindang_hanhkhaches = $tindang_hanhkhaches->paginate(Constants::$paging_number);
 
             if( ($count_hanhkhach ) == 0){
                 flash("flash_message1", "Không có dữ liệu mà bạn cần tìm!" , "important");
@@ -112,7 +113,7 @@ class PagesController extends Controller
                 flash("flash_message1", "Kết quả 	&nbsp;: &nbsp;	&nbsp; <i>". $count_hanhkhach."</i> &nbsp; tin tìm xe" , "important");
             }
         } else{
-            $tindang_hanhkhaches = $tindang_hanhkhaches->paginate(10);
+            $tindang_hanhkhaches = $tindang_hanhkhaches->paginate(Constants::$paging_number);
         }
 
         return view('pages.timkhach', compact('tindang_hanhkhaches'));
@@ -124,7 +125,7 @@ class PagesController extends Controller
             ->tindangs()->with('user.taixe.loaixe')
             ->where('tindangs.status', '=', true)
             ->orderBy("ngaydang", "desc")
-            ->paginate(5);
+            ->paginate(Constants::$paging_number);
         return $tin_dichvus;
     }
 
@@ -135,7 +136,7 @@ class PagesController extends Controller
             ->select('tindangs.*', 'users.hoten', 'users.SDT')
             ->join('users', 'tindangs.user_id', '=', 'users.id')
             ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
-            ->where('loaitins.tenLT', '=', "Tìm khách")
+            ->where('loaitins.tenLT', '=', Constants::$tin_tim_khach)
             ->where('tindangs.status', '=', true)
             ->orderBy("ngaydang", "desc");
         return $tindang_hanhkhaches;
@@ -158,7 +159,7 @@ class PagesController extends Controller
             ->join('taixes', 'users.id', '=', 'taixes.user_id')
             ->join('loaixes', 'taixes.loaixe_id', '=', 'loaixes.id')
             ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
-            ->where('loaitins.tenLT', '=', "Tìm xe")
+            ->where('loaitins.tenLT', '=', Constants::$tin_tim_xe)
             ->where('tindangs.status', '=', true)
             ->orderBy($order_by, $sort);
         return $tindang_taixes;

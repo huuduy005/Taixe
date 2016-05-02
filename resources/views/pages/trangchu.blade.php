@@ -15,14 +15,14 @@
     @include('partials.timkhach')
     <div class="text-right">
         @if(isset($tindang_taixes))
-            @if($tindang_taixes->count() >= 8)
+            @if($tindang_taixes->count() >= 5)
 
-                {!! $tindang_taixes->render() !!}
+                {!! $tindang_taixes->appends(Request::except('page'))->render() !!}
             @else
-                {!! $tindang_hanhkhaches->render() !!}
+                {!! $tindang_hanhkhaches->appends(Request::except('page'))->render() !!}
             @endif
         @else
-            {!! $tindang_hanhkhaches->render() !!}
+            {!! $tindang_hanhkhaches->appends(Request::except('page'))->render() !!}
         @endif
     </div>
 

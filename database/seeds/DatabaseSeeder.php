@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(LoaixesTableSeeder::class);
         $this->call(LoaitinsTableSeeder::class);
 
+        /*factory(App\Tindang::class, 50)->create();*/
+
         Model::reguard();
     }
 }

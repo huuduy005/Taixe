@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        input[type="checkbox"]{
+            margin-top: 2px;
+        }
+    </style>
+
     @include('flash')
     <div class="container">
         <div class="row">
@@ -9,7 +15,6 @@
                     <div class="panel-heading">Đăng nhập</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-                            {!! csrf_field() !!}
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label class="col-md-4 control-label">Địa chỉ email</label>
@@ -57,6 +62,8 @@
                                     <a class="btn btn-link" href="{{ url('/password/reset') }}">Quên mật khẩu?</a>
                                 </div>
                             </div>
+                            {!! csrf_field() !!}
+
                         </form>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Shared\Constants;
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +15,8 @@ class AdminTableSeeder extends Seeder
     {
         DB::table('users')->delete();
         $users = [
-            ['email' => 'toantam@gmail.com', 'password' => bcrypt('toantam'), 'admin' => true, 'hoten' => 'Admin', 'SDT'=> '0987491230']
+            ['email' => Constants::$admin_email, 'password' => bcrypt('admin'), 'admin' => true, 'hoten' => 'Admin', 'SDT'=> '0987491230'],
+            /*['email' => 'toantam@gmail.com', 'password' => bcrypt('123456'), 'hoten' => 'Toàn Tam', 'SDT'=> '0987491230']*/
         ];
         foreach($users as $user){
             DB::table('users')->insert($user);

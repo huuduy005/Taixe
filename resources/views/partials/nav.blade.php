@@ -22,8 +22,8 @@
                     <a href="{{ action('PagesController@timkhach') }}">TÌM KHÁCH</a>
                 </li>
 
-                <li>
-                    <a href="#">TIN TỨC</a>
+                <li class="nav-tintuc">
+                    <a href="{{ action('TintucsController@index') }}">TIN TỨC</a>
                 </li>
                 <li class="nav-dichvu">
                     <a href="{{action('PagesController@dichvu')}}">DỊCH VỤ</a>
@@ -37,11 +37,11 @@
                     <li class="nav-dangky"><a href="{{ url('/register') }}">ĐĂNG KÝ</a></li>
                 @else
                     @if(Auth::user()->admin)
-                        <li><a class="hoten-nav" href="{{ url('/admin') }}"
+                        <li><a data-placement="bottom" data-toggle="tooltip"  class="hoten-nav" href="{{ url('/admin') }}"
                                                        title="{{ Auth::user()->hoten }}">{{ Auth::user()->hoten }}</a>
                         </li>
                     @else
-                        <li><a class="hoten-nav" href="{{ url('/dashboard')}}"
+                        <li><a data-placement="bottom" data-toggle="tooltip"  class="hoten-nav" href="{{ url('/dashboard')}}"
                                                        title="{{ Auth::user()->hoten }}">{{ Auth::user()->hoten }}</a>
                         </li>
                     @endif
@@ -111,5 +111,9 @@
 
     @if(Request::is('register'))
         $('.nav-dangky').css({'background': '#77bb33'});
+    @endif
+
+      @if(Request::is('tintucs'))
+        $('.nav-tintuc').css({'background': '#77bb33'});
     @endif
 </script>

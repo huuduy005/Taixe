@@ -1,35 +1,39 @@
 <style>
-    .title_tindang{
-        text-transform: uppercase ;
+    .title_tindang {
+        text-transform: uppercase;
     }
 
-    .btn_dangtin{
+    .btn_dangtin {
         font-size: 12px;
         font-weight: bold;
     }
 </style>
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
-{{--<link rel="stylesheet" href="{{ asset('plugins/iCheck/all.css') }}">--}}
+<link rel="stylesheet" href="{{ asset('plugins/iCheck/all.css') }}">
 
 <h2 class="text-center title_tindang">{{ $submitButtonText }}</h2>
 <br>
 <br>
 <div class="row" style="font-size: 14px; font-style: italic ">
     <label class="form-control-static col-md-4" for="rd_tinthuong">Loại tin :</label>
-    <div class="col-md-2" >
-        <input type="radio" name="rd_loaitin" checked id="rd_tinthuong" value="tinthuong">&nbsp;&nbsp;&nbsp;Tin thường
+    <div class="col-md-2">
+        <input type="radio" class="minimal" name="rd_loaitin" checked id="rd_tinthuong" value="tinthuong">&nbsp;&nbsp;&nbsp;Tin
+        thường
     </div>
     <div class="col-sm-2">
         @if(isset($tindang))
             @if($tindang->loaitin->tenLT == "Dịch vụ")
-                <input type="radio"  name="rd_loaitin" id="rd_tindichvu" checked value="tindichvu">&nbsp;&nbsp;&nbsp;Tin
+                <input type="radio" class="minimal" name="rd_loaitin" id="rd_tindichvu" checked value="tindichvu">&nbsp;
+                &nbsp;&nbsp;Tin
                 dịch vụ
             @else
-                <input type="radio"  name="rd_loaitin" id="rd_tindichvu" value="tindichvu">&nbsp;&nbsp;&nbsp;Tin dịch vụ
+                <input type="radio" class="minimal" name="rd_loaitin" id="rd_tindichvu" value="tindichvu">&nbsp;&nbsp;
+                &nbsp;Tin dịch vụ
             @endif
         @else
-            <input type="radio"  name="rd_loaitin" id="rd_tindichvu" value="tindichvu">&nbsp;&nbsp;&nbsp;Tin dịch vụ
+            <input type="radio" class="minimal" name="rd_loaitin" id="rd_tindichvu" value="tindichvu">&nbsp;&nbsp;&nbsp;
+            Tin dịch vụ
         @endif
     </div>
 </div>
@@ -41,7 +45,7 @@
 
         <!-- add tieude Form input -->
 <div class="form-group">
-   {{-- {!! Form::label('tieude', 'Tiêu đề  (*):') !!}--}}
+    {{-- {!! Form::label('tieude', 'Tiêu đề  (*):') !!}--}}
     {!! Form::text('tieude', null, ['class' => 'form-control', 'required', 'placeholder'=>'Tiêu đề  (*)']) !!}
 </div>
 
@@ -102,11 +106,15 @@
 
 <!-- add Dang tin Form input -->
 <div class="form-group text-center">
-    {!! Form::submit($submitButtonText , ['class' => 'btn btn-primary btn_dangtin']) !!}
+    <button type="submit" class="btn btn-primary btn_dangtin"><span class="glyphicon glyphicon-ok-circle"></span> {{$submitButtonText}}</button>
     @if(Request::is('*sua'))
-        <a href="/dashboard" class="btn btn-warning" style="width: 9%">Hủy</a>
+       {{-- <a href="/dashboard" class="btn btn-warning" style="width: 9%">Hủy</a>--}}
+        <a href="/dashboard" type="button" style="width: 9%" class="btn btn-warning btn_dangtin">
+            <i class="glyphicon glyphicon-ban-circle"></i>
+            <span>Hủy</span>
+        </a>
     @else
-        {!! Form::reset('Nhập lại', ['class' => 'btn btn-warning btn_dangtin']) !!}
+        {{ Form::button('<span class="glyphicon glyphicon-remove-circle"></span> Nhập lại', array('class'=>'btn btn-warning btn_dangtin', 'type'=>'reset')) }}
     @endif
 </div>
 
@@ -115,7 +123,7 @@
 
 <script type="text/javascript" src="{{ asset('plugins/ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
-{{--<script type="text/javascript" src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>--}}
+<script type="text/javascript" src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
 <script type="text/javascript">
 
     $(function () {
@@ -124,10 +132,10 @@
         CKEDITOR.replace('editor1');
 
         //iCheck for checkbox and radio inputs
-        /*$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'iradio_minimal-blue'
-        });*/
+        });
 
         //Initialize Select2 Elements
         $(".select2").select2();
@@ -151,26 +159,21 @@
                 todayHighlight: true,
             });
         }
+
         @if(Auth::user()->is('hanhkhach'))
             $('.row_giave').hide();
         @else
         $('.row_giave').show();
         @endif
 
-        $('#rd_tinthuong').change(function () {
-            $('#tindichvu_tinthuong').show();
-        })
-
-        $('#rd_tindichvu').change(function () {
+         {{-- checked event for loaitin radio button --}}
+        $('#rd_tindichvu').on('ifChecked', function (event) {
             $('#tindichvu_tinthuong').hide();
-        })
+        });
 
-        if ($('#rd_tinthuong').attr("checked")) {
+        $('#rd_tinthuong').on('ifChecked', function (event) {
             $('#tindichvu_tinthuong').show();
-        }
+        });
 
-        if ($('#rd_tindichvu').attr("checked")) {
-            $('#tindichvu_tinthuong').hide();
-        }
     });
 </script>

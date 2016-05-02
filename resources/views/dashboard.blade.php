@@ -1,5 +1,34 @@
 @extends('layouts.app')
+@section('css')
+    <link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
+    <style>
+        .form-control {
+            font-size: 13px;
+        }
+
+        a {
+            color: #555;
+        }
+
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+            background: #83BE54;
+            color: white;
+        }
+        .nav-tabs > li {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .nav-tabs{
+            margin-bottom: 3px;
+        }
+        .nav-tabs > li > a{
+            margin-right: 0px;
+        }
+    </style>
+@endsection
+
 @section('content')
+
     @include('flash')
     <div class="row">
         <div class="info_account">
@@ -14,7 +43,8 @@
             <div class="row col-sm-offset-1">
                 <div class="col-sm-2">
                     <img width="60%" src="{{asset("images/purse.png")}}" class="img img-responsive">
-                           <font color="red" size="5" style="font-weight: bold">{{ number_format(Auth::user()->soduTK, null, ',', '.' )}} đ</font>
+                    <font color="red" size="5"
+                          style="font-weight: bold">{{ number_format(Auth::user()->soduTK, null, ',', '.' )}} đ</font>
                 </div>
                 <div class="col-sm-5">
                     <div class="row  form-group">
@@ -22,39 +52,40 @@
                         <div class="col-sm-5">{{ Auth::user()->email }}</div>
                     </div>
                     <div class="row form-group">
-                        <div class="col-sm-3"><b>Họ và tên:</b></div>
+                        <div class="col-sm-3 lbl_form_control"><b>Họ và tên:</b></div>
                         <div class="col-sm-5 account_name">{{ Auth::user()->hoten }}</div>
                     </div>
                     <div class="row form-group">
-                        <div class="col-sm-3"><b>SDT:</b></div>
+                        <div class="col-sm-3 lbl_form_control"><b>SDT:</b></div>
                         <div class="col-sm-5 account_sdt">{{ Auth::user()->SDT }}</div>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    {{--*/$taixe =   Auth::user()->taixe/*--}}
+                    {{-- */ $taixe =  Auth::user()->taixe;/* --}}
                     @unless(Auth::user()->hanhkhach)
                         <div class="row form-group">
-                            <div class="col-sm-3"><b>Biển số:</b></div>
+                            <div class="col-sm-3 lbl_form_control"><b>Biển số:</b></div>
                             <div class="col-sm-5 account_bienso">{{ $taixe->bienso }}</div>
                         </div>
                         <div class="row form-group">
-                            <div class="col-sm-3"><b>Loại xe:</b></div>
+                            <div class="col-sm-3 lbl_form_control"><b>Loại xe:</b></div>
                             <div class="col-sm-5 account_loaixe">{{ $taixe->loaixe->tenLX }}</div>
                         </div>
                     @endunless
                 </div>
                 <div class="col-sm-1 text-right">
-                    <a href="#" title="Cập nhật thông tin cá nhân" class="capnhat_taikhoan">
+                    <a href="#" data-placement="bottom" data-toggle="tooltip" title="Cập nhật thông tin cá nhân"
+                       class="capnhat_taikhoan">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"
                               style="font-size: 25px; color: #337ab7"></span>
                     </a>
                     <div class="confirm_update">
-                        <a href="#" title="Cập nhật thông tin cá nhân" class="capnhat_ok">
+                        <a href="#" data-placement="left" data-toggle="tooltip" title="Đồng ý" class="capnhat_ok">
                             <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"
                                   style="font-size: 30px; color: #337ab7"></span>
                         </a>
                         <br>
-                        <a href="#" title="Cập nhật thông tin cá nhân" class="capnhat_cancel">
+                        <a href="#" data-placement="left" data-toggle="tooltip" title="Hủy" class="capnhat_cancel">
                             <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"
                                   style="font-size: 30px; color: #337ab7"></span>
                         </a>
@@ -63,56 +94,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $('.confirm_update').hide();
-        $('.capnhat_taikhoan').click(function () {
-            $('.account_name').html("<input type=text class='form-control txt_name' value='" + $('.account_name').text() + "'>");
-            $('.account_sdt').html("<input type=text class='form-control txt_sdt' value='" + $('.account_sdt').text() + "'>");
-
-            @unless(Auth::user()->hanhkhach)
-            $('.account_bienso').html("<input type=text class='form-control txt_bienso' value='" + $('.account_bienso').text() + "'>");
-            $.get('/loaixe',
-                    function (data) {
-                        str = "";
-                        $.each(data, function (key, value) {
-                            if (value['tenLX'] == $('.account_loaixe').text()) {
-                                str = str + "<option value=" + value['id'] + " selected> " + value['tenLX'] + " </option>";
-                            } else {
-                                str = str + "<option value=" + value['id'] + " > " + value['tenLX'] + " </option>";
-                            }
-                        })
-
-                        $('.account_loaixe').html("<select class='sl_loaixe form-control'>" +
-                                str
-                                + "</select>");
-                    }
-            );
-            @endunless
-
-            $(this).hide();
-            $('.confirm_update').show();
-        });
-
-        $('.capnhat_ok').on('click', function () {
-            name = $('.txt_name').val();
-            sdt = $('.txt_sdt').val();
-            bienso = $('.txt_bienso').val();
-            loaixe = $('.sl_loaixe').val();
-            id = "{{ Auth::user()->id }}";
-
-            $.get('/update_taikhoan',
-                    {name: name, sdt: sdt, bienso: bienso, loaixe: loaixe, id: id},
-                    function (data) {
-                        window.location.replace("{{ Request::url() }}");
-                    })
-        });
-
-        $('.capnhat_cancel').on('click', function () {
-            window.location.replace("{{ Request::url() }}");
-        });
-
-    </script>
 
     <br><br>
 
@@ -255,6 +236,8 @@
             <div class="text-right"> {!! $tindangs->render() !!}</div>
         </div>
 
+
+
         <div role="tabpanel" class="tab-pane @if(Request::input('loaitin_id')) active @endif" id="bai_luu">
             <div class="row">
                 <div class="container-fluid">
@@ -280,7 +263,10 @@
                                             background: white;
                                         }
 
-                                        .table{{$tindang->id}} .color-blue, .table{{$tindang->id}}           {
+                                        .table{{$tindang->id}} .color-blue, .table{{$tindang->id}}            {
+                                            color: #bbb !important;
+                                        }
+                                        .table{{$tindang->id}} .value_giave font,.table{{$tindang->id}} .disable_color font{
                                             color: #bbb !important;
                                         }
 
@@ -317,7 +303,7 @@
                                                     <td><strong>SĐT: </strong></td>
                                                     <td class="value_sdt">{{ $tindang->user->SDT }}</td>
                                                 </tr>
-                                                {{--*/$taixe1 =  $tindang->user->taixe/*--}}
+                                                    {{-- */ $taixe1 =  $tindang->user->taixe; /*--}}
                                                 <tr>
                                                     @if($tindang->user->is('hanhkhach') || $tindang->user->is('admin'))
                                                         <td>&nbsp;</td>
@@ -349,14 +335,14 @@
                                         <td width="500" align="center">
                                             @if(isset($has_tin_dv))
                                                 @if($has_tin_dv)
-                                                    <div class="row">
+                                                    <div class="row disable_color">
                                                         <font color="blue" style="font-weight: bold"
                                                               size="4">{{$tindang->tieude}}</font>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-12"
-                                                             style="height: 30px; width: 500px;white-space: nowrap; word-break: break-word; overflow: hidden; text-overflow: ellipsis">
-                                                            {{$tindang->noidung}}
+                                                             style="height: 30px; width: 500px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+                                                            {!!  $tindang->noidung  !!}
                                                         </div>
                                                     </div>
                                                     <br>
@@ -445,4 +431,60 @@
         }
     </style>
     @include('partials.script_style.option_tindang')
+@endsection
+
+@section("script")
+    <script type="text/javascript" src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
+    <script>
+        $(".select2").select2();
+
+        $('.confirm_update').hide();
+        $('.capnhat_taikhoan').click(function () {
+            $(".lbl_form_control").addClass("form-control-static");
+            $('.account_name').html("<input type=text class='form-control txt_name  input-sm' value='" + $('.account_name').text() + "'>");
+            $('.account_sdt').html("<input type=text class='form-control txt_sdt  input-sm' value='" + $('.account_sdt').text() + "'>");
+
+            @unless(Auth::user()->hanhkhach)
+            $('.account_bienso').html("<input type=text class='form-control txt_bienso  input-sm' value='" + $('.account_bienso').text() + "'>");
+            $.get('/loaixe',
+                    function (data) {
+                        str = "";
+                        $.each(data, function (key, value) {
+                            if (value['tenLX'] == $('.account_loaixe').text()) {
+                                str = str + "<option value=" + value['id'] + " selected> " + value['tenLX'] + " </option>";
+                            } else {
+                                str = str + "<option value=" + value['id'] + " > " + value['tenLX'] + " </option>";
+                            }
+                        })
+
+                        $('.account_loaixe').html("<select class='sl_loaixe form-control input-sm select2'>" +
+                                str
+                                + "</select>");
+                    }
+            );
+            @endunless
+
+            $(this).hide();
+            $('.confirm_update').show();
+        });
+
+        $('.capnhat_ok').on('click', function () {
+            name = $('.txt_name').val();
+            sdt = $('.txt_sdt').val();
+            bienso = $('.txt_bienso').val();
+            loaixe = $('.sl_loaixe').val();
+            id = "{{ Auth::user()->id }}";
+
+            $.get('/update_taikhoan',
+                    {name: name, sdt: sdt, bienso: bienso, loaixe: loaixe, id: id},
+                    function (data) {
+                        window.location.replace("{{ Request::url() }}");
+                    })
+        });
+
+        $('.capnhat_cancel').on('click', function () {
+            window.location.replace("{{ Request::url() }}");
+        });
+
+    </script>
 @endsection

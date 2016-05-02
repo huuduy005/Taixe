@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Loaitin;
+use App\Taixe;
 use App\Tindang;
 use App\User;
 use Carbon\Carbon;
@@ -38,6 +39,7 @@ class TindangsController extends Controller
                         }
                     }
 
+
                     if ($check) {
                         return "error";
                     }
@@ -64,7 +66,7 @@ class TindangsController extends Controller
 
     public function create()
     {
-
+        if(Auth::user()->admin) return redirect("/admin");
         return view('tindangs.create');
     }
 
@@ -114,14 +116,18 @@ class TindangsController extends Controller
         Auth::user()->soduTK -= $price;
         Auth::user()->save();
 
-        flash('flash_message1', 'Bạn đã thêm mới tin đăng thành công!');
+        flash('flash_message1', 'Bạn đã đăng tin thành công!');
 
         return redirect('/dashboard');
     }
 
     public function show(Tindang $tindang)
     {
+        // Eager loading for tin dang
+        $tindang = Tindang::with('user')->find($tindang->id);
+
         $taixe = $tindang->user->taixe;
+
         if (is_null($taixe)) {
             return view('tindangs.chitiet', compact('tindang'));
         } else {
@@ -137,10 +143,16 @@ class TindangsController extends Controller
 
     public function update(Tindang $tindang, Request $request)
     {
+        $giave = str_replace('.', '', Request::get('giave'));
+
         $tindang->update(Request::all());
+
+        $tindang->giave = $giave;
+        $tindang->save();
 
         flash('flash_message1', 'Bạn đã sửa tin đăng thành công!');
 
         return redirect('/dashboard');
     }
+
 }

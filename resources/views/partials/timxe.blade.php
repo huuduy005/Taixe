@@ -2,7 +2,7 @@
     @foreach($tindang_taixes as $tindang)
         <table class="list_trangchu table table-responsive table{{$tindang->id}}">
             <tr>
-                <td>
+                <td width="250">
                     <table class="table-responsive">
                         <tr>
                             <td rowspan="4" width="100">
@@ -11,7 +11,7 @@
                                 </div>
                             </td>
                             <td width="80"><strong>Họ tên: </strong></td>
-                            <td class="value_hoten">{{ $tindang->hoten }}</td>
+                            <td class="value_hoten">{!! link_to_action('TindangusersController@byUser', $tindang->hoten, $tindang->user_id) !!}</td>
                         </tr>
                         <tr>
                             <td><strong>SĐT: </strong></td>
@@ -26,14 +26,14 @@
                         </tr>
                     </table>
                 </td>
-                <td align="center">
+                <td width="500" align="center">
                     <p class="value_lotrinh text-center"><i>{{$tindang->noidi}} - {{ $tindang->thanhphonoidi }} <font color="red">-</font> {{$tindang->noiden}} - {{ $tindang->thanhphonoiden }}</i></p>
                     <p class="value_giokhoihanh">
                         <font color="blue">{{ $tindang->giokhoihanh }} - {{ $tindang->ngaykhoihanh }}</font>
                     </p>
                     <a href="/tindangs/{{$tindang->id}}" class="chitiet_dixe border_radius">>Xem thông tin chi tiết ...</a>
                 </td>
-                <td>
+                <td width="253">
                     @include('partials.option_tindang', ['tindang' => $tindang])
                     <p>&nbsp;</p>
                     <div class="col-sm-4" style="padding-top: 7px">Giá vé:</div>

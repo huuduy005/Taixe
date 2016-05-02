@@ -8811,20 +8811,20 @@ body {
 }
 
 .info_account {
-    font-size: 15px;
+    font-size: 13px;
 }
 
 #search {
     margin-left: 0%;
     width: 100%;
-    padding: 10px 0 10px 0;
+    padding: 10px 0 5px 0;
     border: 1px solid #eeeeee;
     margin-bottom: 8px;
     border-radius: 20px;
 }
 
 .footer-above {
-    height: 150px;
+    min-height: 150px;
     padding-top: 15px;
 }
 
@@ -8901,7 +8901,6 @@ body a {
 
 
 .glyphicon-resize-horizontal {
-    padding-top: 7px;
     font-size: 30px
 }
 
@@ -8965,5 +8964,103 @@ body a {
     height: 300px;
     width: 100%;
 }
+.a_dangxuat {
+    background: #83be54;
+    padding-right: 0px !important;
+}
+
+.drop_dangxuat {
+    padding: 0px;
+    border: 0px;
+    min-width: 120px !important;
+}
+
+.drop_dangxuat li a:hover {
+    background-color: #77bb33;
+}
+
+.list_trangchu {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.value_giokhoihanh, .value_giave, .value_lotrinh {
+    font-size: 15px;
+}
+
+.option-menu {
+    padding: 0px;
+    border: 0;
+    margin: 0px;
+}
+
+.option-menu li a:hover {
+    background: green;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ccc !important;
+    height: 30px !important;
+}
+
+.tintuc_tieude {
+    font-size: 22px;
+    color: #5ca038;
+    padding-bottom: 5px;
+    margin: 0;
+}
+
+.tintuc_ngay {
+    font-size: 12px;
+    padding-bottom: 5px;
+    font-style: italic;
+}
+
+.tintuc_noidung {
+    font-size: 13px !important;
+}
+
+.container-edit {
+    margin-right: 0%;
+    margin-left: 4%;
+}
+
+.div_content_tintuc {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 20px;
+}
+
+.td2_tindang {
+    width: 530px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+#cloud {
+    -moz-border-radius: 84px;
+    text-align: center;
+    position: absolute;
+}
+#cloud a{
+    color: #337ab7!important;
+}
+
+body {
+    /*font-family: 'Arial';*/
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.trogiup span {
+    font-size: 20px;
+    margin-right: 2%
+}
+
+.fa-btn {
+    margin-right: 6px;
+}
+
 
 /*# sourceMappingURL=site.css.map */

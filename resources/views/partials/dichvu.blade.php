@@ -25,50 +25,40 @@
                                 </div>
                             </td>
                             <td width="80"><strong>Họ tên: </strong></td>
-                            <td class="value_hoten">{{ $tindang->user->hoten }}</td>
+                            <td class="value_hoten">{!! link_to_action('TindangusersController@byUser', $tindang->user->hoten, $tindang->user_id) !!}</td>
                         </tr>
                         <tr>
                             <td><strong>SĐT: </strong></td>
                             <td class="value_sdt">{{ $tindang->user->SDT }}</td>
                         </tr>
-                        {{--*/$taixe1 =  $tindang->user->taixe/*--}}
-                        <tr>
-                            @if($tindang->user->is('hanhkhach') || $tindang->user->is('admin'))
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            @else
-                                <td><strong>Loại xe: </strong></td>
-                                <td>{{ $taixe1->loaixe->tenLX }}</td>
-                            @endif
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                @if(!$tindang->user->is('hanhkhach'))
-                                    <input value="{{ $taixe1->ratepoint }}"
-                                           id="rating{{ $tindang->id }}" type="number"
-                                           class="rating rating{{ $taixe1->id }}" min=0
-                                           max=5 step=0.5 data-size="xs"
-                                           data-show-caption="false">
-                                    <font color="#aaa">
-                                                                    <span class="ratinglabel{{ $taixe1->id }}">{{ $taixe1->ratepoint }}
-                                                                        / 5 điểm - {{ $taixe1->ratecount }} </span> lượt
-                                        bầu
-                                    </font>
-                                    @include('partials.star_rating', ['tindang'=> $tindang, 'taixe' => $taixe1])
+
+                            <tr>
+                                @if($tindang->user->is('hanhkhach') || $tindang->user->is('admin'))
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                @else
+                                    <td><strong>Loại xe: </strong></td>
+                                    <td> {{ $tindang->user->taixe->loaixe->tenLX }} </td>
                                 @endif
-                            </td>
-                        </tr>
+                            </tr>
+                            <tr>
+                                @if($tindang->user->taixe != null)
+                                    @include('partials.script_style.star_rating_new')
+                                @endif
+                            </tr>
                     </table>
                 </td>
                 <td width="500" align="center">
-                    <div class="row">
+                    <div class="row td2_tindang">
                         <font color="blue" style="font-weight: bold"
                               size="4">{{$tindang->tieude}}</font>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12"
-                             style="height: 30px; width: 500px;white-space: nowrap; word-break: break-word; overflow: hidden; text-overflow: ellipsis">
-                            {{$tindang->noidung}}
+                        <div class="col-sm-12 td2_tindang" style="height: 20px;">
+                            {!!  $tindang->noidung !!}}
+                        </div>
+                        <div class="col-sm-12 text-left">
+                        ............................
                         </div>
                     </div>
                     <br>

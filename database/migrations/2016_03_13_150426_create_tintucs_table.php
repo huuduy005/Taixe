@@ -16,6 +16,9 @@ class CreateTintucsTable extends Migration
             $table->increments('id');
             $table->string('tieude');
             $table->longText('noidung');
+            $table->boolean('status')->default(true);
+            $table->boolean('hot');
+            $table->timestamps();
         });
     }
 

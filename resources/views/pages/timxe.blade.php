@@ -7,7 +7,7 @@
     @include('partials.timxe')
 
     <div class="text-right">
-        {!! $tindang_taixes->render() !!}
+        {!! $tindang_taixes->appends(Request::except('page'))->render() !!}
     </div>
 
     @include('partials.script_style.option_tindang'){{-- style and script for option tindang --}}

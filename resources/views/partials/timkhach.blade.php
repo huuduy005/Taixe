@@ -17,7 +17,7 @@
                                 </div>
                             </td>
                             <td width="80"><strong>Họ tên: </strong></td>
-                            <td class="value_hoten">{{ $hanhkhach->hoten }}</td>
+                            <td class="value_hoten">{!! link_to_action('TindangusersController@byUser', $hanhkhach->hoten, $hanhkhach->user_id) !!}</td>
                         </tr>
 
                         <tr>

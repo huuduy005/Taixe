@@ -24,10 +24,8 @@
     //Initialize Select2 Elements
     $(".select2").select2();
 
-    $(
-            $('#tieuchi').change(function () {
-                window.location.replace("{{Request::url()}}?sort=" + this.value)
-            })
-    )
+    $('#tieuchi').change(function () {
+        window.location.replace("{{Request::url()}}?sort=" + this.value)
+    })
 </script>
 <div style="margin-top: 3px"></div>
