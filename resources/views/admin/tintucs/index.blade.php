@@ -49,7 +49,7 @@
                                 <td class="text-center">{{ $tintuc->created_at }}</td>
                                 <td class="text-center"><input class="minimal" id_tintuc="{{ $tintuc['id'] }}" id="chbx_tinhot"
                                                                type="checkbox" {{ $tintuc->hot ? 'checked' : '' }}></td>
-                                <td class="text-center"><a href="tintucs/{{$tintuc->id}}/sua"
+                                <td class="text-center"><a href="/admin/tintucs/{{$tintuc->id}}/sua"
                                                            class="btn btn-primary btn-sm btn_edit"><span
                                                 class="glyphicon glyphicon-pencil"></span> Sửa</a>
                                     @if($tintuc['status'])
