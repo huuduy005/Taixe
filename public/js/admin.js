@@ -13499,8 +13499,8 @@ function onResetButton() {
 
 // Hot post side of tin tức
 function animateCloud() {
-    $('#cloud').animate({left: '+=78%'}, {duration: 20000, easing: "linear"})
-        .animate({left: '-=78%'}, {duration: 20000, easing: "linear", complete: animateCloud});
+    $('#cloud').animate({left: '+=100%'}, {duration: 25000, easing: "linear"})
+        .animate({left: '-=100%'}, {duration: 25000, easing: "linear", complete: animateCloud});
 }
 
 $(function () {

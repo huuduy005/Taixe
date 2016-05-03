@@ -31,6 +31,7 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             height: 20px;
+            font-size: 13px;
         }
     </style>
 @endsection
@@ -47,6 +48,7 @@
                                    href="{{url('/tintucs', $tintuc->id)}}">{{$tintuc->tieude}}</a>
                             </h3>
                             <div class="s">
+                                <font style="font-size: 12px">{{ date_format(date_create($tintuc->updated_at), 'H:i - d/m/Y')}}</font>
                                     <div class="div_content_tintuc">
                                         {!! $tintuc->noidung !!}}
                                     </div>

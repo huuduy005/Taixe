@@ -93,7 +93,7 @@
                                 </b><br>
                                 <font color="#aaa" class="tg_lotrinh">
                                     @if($tindang->lotrinhhientai != "" && $tindang->lotrinhhientai != null)
-                                        ( {{ date_format(date_create($tindang->TG_capnhatlotrinh), 'H:i - m/d/Y')}} )
+                                        ( {{ date_format(date_create($tindang->TG_capnhatlotrinh), 'H:i - d/m/Y')}} )
                                     @endif
                                 </font>
 

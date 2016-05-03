@@ -9043,9 +9043,14 @@ body a {
     -moz-border-radius: 84px;
     text-align: center;
     position: absolute;
+
 }
 #cloud a{
     color: #337ab7!important;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 body {

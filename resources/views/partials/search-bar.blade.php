@@ -57,7 +57,7 @@
     </form>
 </div>
 
-<script type="text/javascript" src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/select2/select2.full.js') }}"></script>
 <script type="text/javascript">
 
     $(function () {

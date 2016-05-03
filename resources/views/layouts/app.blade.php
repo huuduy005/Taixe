@@ -17,7 +17,7 @@
 
     <!-- Styles -->
     <link href="{{ asset("css/site.css") }}" rel="stylesheet">
-    {{--<link href="{{ asset("css/temp.css") }}" rel="stylesheet">--}}
+   {{-- <link href="{{ asset("css/temp.css") }}" rel="stylesheet">--}}
     @yield('css')
 
     <script src="{{ asset("js/site.js") }}"></script>
