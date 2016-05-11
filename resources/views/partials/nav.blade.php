@@ -16,10 +16,10 @@
                     <a href="#page-top"></a>
                 </li>
                 <li class="nav-timxe">
-                    <a href="{{ action('PagesController@timxe') }}">TÌM XE</a>
+                    <a href="{{ action('PagesController@timxe') }}">KHÁCH TÌM XE</a>
                 </li>
                 <li class="nav-timkhach">
-                    <a href="{{ action('PagesController@timkhach') }}">TÌM KHÁCH</a>
+                    <a href="{{ action('PagesController@timkhach') }}">XE TÌM KHÁCH</a>
                 </li>
 
                 <li class="nav-tintuc">

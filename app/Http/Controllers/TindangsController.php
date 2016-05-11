@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Shared\Constants;
 use App\Loaitin;
 use App\Taixe;
 use App\Tindang;
@@ -66,7 +67,7 @@ class TindangsController extends Controller
 
     public function create()
     {
-        if(Auth::user()->admin) return redirect("/admin");
+        if (Auth::user()->admin) return redirect("/admin");
         return view('tindangs.create');
     }
 
@@ -79,41 +80,48 @@ class TindangsController extends Controller
     public function store(Request $request)
     {
         //validate request before manipulate data in here against DangtinRequest;
-
         $tindang = new Tindang();
 
-
-        if(Request::get('rd_loaitin') == "tinthuong"){
+        /**
+         * Phân loại tin đăng cho user
+         * Tài xế: Tìm khách
+         * Khách : Tìm xe
+         * Hoặc : dịch vụ
+         */
+        if (Request::get('rd_loaitin') == "tinthuong") {
             if (Auth::user()->is('hanhkhach')) {
-                $loaitin_id = Loaitin::where('tenLT', "Tìm khách")->first()->id;
+                $loaitin_id = Loaitin::where('tenLT', Constants::$tin_tim_xe)->first()->id;
             } else {
-                $loaitin_id = Loaitin::where('tenLT', "Tìm xe")->first()->id;
+                $loaitin_id = Loaitin::where('tenLT', Constants::$tin_tim_khach)->first()->id;
             }
-        } else{
-            $loaitin_id = Loaitin::where('tenLT', "Dịch vụ")->first()->id;
+        } else {
+            $loaitin_id = Loaitin::where('tenLT', Constants::$tin_dich_vu)->first()->id;
         }
-
         $tindang->loaitin_id = $loaitin_id;
+        $tindang->khoihanh = $this->convertToCarbon();
 
         $tindang->fill(Request::all());
 
+        // Tách dấu chấm ra khỏi chuỗi để lưu lại giá vé trong db
         $giave = $tindang->giave;
-
         $giave = str_replace('.', '', $giave);
-
         $tindang->giave = $giave;
 
-        $price = $tindang->loaitin->giatien;
 
+        /**
+         * Trừ tiền vào tài khoản của user
+         * Cập nhật trừ : 1/2 Số lần đăng tin
+         */
+        $price = $tindang->loaitin->giatien;
         if (Auth::user()->soduTK - $price < 0) {
             flash('flash_message1', 'Tài khoản của bạn không đủ để đăng tin!', 'important');
 
             return redirect('/dashboard');
         }
-
         Auth::user()->tindangs()->save($tindang);
         $tindang->save();
         Auth::user()->soduTK -= $price;
+        Auth::user()->sotiendachi += $price;
         Auth::user()->save();
 
         flash('flash_message1', 'Bạn đã đăng tin thành công!');
@@ -148,11 +156,27 @@ class TindangsController extends Controller
         $tindang->update(Request::all());
 
         $tindang->giave = $giave;
+
+        $tindang->khoihanh = $this->convertToCarbon();
+
         $tindang->save();
 
         flash('flash_message1', 'Bạn đã sửa tin đăng thành công!');
 
         return redirect('/dashboard');
+    }
+
+    /**
+     * Convert to a Carbon to use for statistic of giokhoihanh + ngaykhoihanh
+     * @return static
+     */
+    protected function convertToCarbon()
+    {
+        $time = Request::get('giokhoihanh');
+        $date = Request::get('ngaykhoihanh');
+        $datetime = $date . " " . $time;
+        $khoihanh = Carbon::createFromFormat("d/m/Y g:i A", $datetime);
+        return $khoihanh;
     }
 
 }

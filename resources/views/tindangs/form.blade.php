@@ -140,7 +140,7 @@
         //Initialize Select2 Elements
         $(".select2").select2();
 
-
+        // Format number for keydown event
         $("#giave").keydown(function () {
             var value = $(this).val();
             $(this).number(true, 0, ' ', '.');
@@ -160,6 +160,8 @@
             });
         }
 
+        /* Hide div gia ve if user is hanhkhach
+         * Else show div gia ve */
         @if(Auth::user()->is('hanhkhach'))
             $('.row_giave').hide();
         @else
@@ -174,6 +176,13 @@
         $('#rd_tinthuong').on('ifChecked', function (event) {
             $('#tindichvu_tinthuong').show();
         });
+
+        /* Hide div if radio tin dich vu is clicked when loading dom  */
+        var checked = $('#rd_tindichvu').iCheck('update')[0].checked;
+        if(checked) {
+            $('#tindichvu_tinthuong').hide();
+        }
+
 
     });
 </script>

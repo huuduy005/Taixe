@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Shared\Constants;
+
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
@@ -64,6 +66,8 @@ Route::group(['middleware' => 'web'], function () {
     #endregion
 
     #endregion
+
+
 
     #region All route for admin prefix
     Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {

@@ -35,7 +35,7 @@
                                 sweetAlert("Không thành công", "Bạn đã đánh giá tài xế này rồi!", "error");
                                 $('.rating{{ $tindang->taixe_id }}').rating('update', data[1]["ratepoint"]);
                             } else {
-                                $('.ratinglabel{{ $tindang->taixe_id }}').text(data["ratepoint"] + "/ 5 điểm - " + data["ratecount"] + " lượt bầu");
+                                $('.ratinglabel{{ $tindang->taixe_id }}').text(data["ratepoint"] + "/ 5 điểm - " + data["ratecount"]);
                                 $('.rating{{ $tindang->taixe_id }}').rating('update', data["ratepoint"]);
                             }
                         })

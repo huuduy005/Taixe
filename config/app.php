@@ -209,6 +209,8 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        'Str'      => Illuminate\Support\Str::class,
     ],
 
 ];

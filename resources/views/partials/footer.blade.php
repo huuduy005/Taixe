@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="footer-col col-md-2 col-sm-2 col-xs-4  col-sm-offset-0 col-xs-offset-2 text-left">
-                    <h5>TAIXE.COM</h5>
+                    <h5>TAIXE</h5>
                     <a href="#">&nbsp;Về chúng tôi</a><br>
                     <a href="#">&nbsp;Dịch vụ</a><br>
                     <a href="#">&nbsp;Báo chí</a><br>
@@ -56,7 +56,7 @@
     </div>
     <div class="row footer-below">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <h5>Copyright &copy; Taixe.com</h5>
+            <h5>Copyright &copy; Taixe</h5>
         </div>
     </div>
 </footer>

@@ -33,8 +33,9 @@
                             {id_xoa: id},
                             function (data) {
                                 if (data == 'delete-successfully') {
-                                    $(".table" + id).hide();
-                                    swal("Thông báo", "Xóa thành công ", "success");
+                                /*  $(".table" + id).hide();
+                                    swal("Thông báo", "Xóa thành công ", "success");*/
+                                    window.location.replace("{{ Request::Url() }}");
                                 }
                             }
                     )

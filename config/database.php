@@ -52,12 +52,12 @@ return [
             'prefix'   => '',
         ],
 
-       /* 'mysql' => [
+       /*   'mysql' => [
             'driver'    => 'mysql',
             'host'      => 'mysql.hostinger.vn',
-            'database'  => 'u495670163_taixe',
-            'username'  => 'u495670163_root',
-            'password'  => '0987491230',
+            'database'  => 'u986791475_tx',
+            'username'  => 'u986791475_toan',
+            'password'  => '123456',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

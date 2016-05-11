@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Shared\Constants;
 use App\Loaitin;
 use App\Loaixe;
 use App\Taixe;
@@ -236,7 +237,7 @@ class SupportController extends Controller
                 $user->taixe->save();
             }
             $user->save();
-            flash("flash_message1", "Cập nhật tài khoản thành công!");
+            flash("flash_message1", sprintf(Constants::$msg_edit_successfully, Constants::$tbl_taikhoan));
         }
     }
 
@@ -251,6 +252,7 @@ class SupportController extends Controller
             $tindang->status = false;
             $tindang->save();
 
+            flash("flash_message1", sprintf(Constants::$msg_delete_successfully, Constants::$tbl_tindang));
 
             return "delete-successfully";
         }
@@ -284,6 +286,7 @@ class SupportController extends Controller
             $temp->save();
 
             Auth::user()->soduTK -= $price;
+            Auth::user()->sotiendachi += $price;
             Auth::user()->save();
 
             flash("flash_message1", "Làm mới thành công!");

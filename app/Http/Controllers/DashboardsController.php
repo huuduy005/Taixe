@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Shared\Constants;
 use App\Loaitin;
 use App\Tindang;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Debugbar;
+use Symfony\Component\Debug\Debug;
 
 class DashboardsController extends Controller
 {
@@ -39,9 +42,7 @@ class DashboardsController extends Controller
         $tindang_saves = $result[0];
         $has_tin_dv = $result[1];
 
-
         $tin_dichvus = $this->tinDichvusOfUser();
-
 
         $tindangs = DB::table('tindangs')
             ->select('tindangs.*', 'users.hoten', 'users.SDT')
@@ -50,11 +51,31 @@ class DashboardsController extends Controller
             ->orderBy('ngaydang', 'desc')
             ->where('users.id', '=', Auth::user()->id)
             ->where('tindangs.status', '=', true)
-            ->where('loaitins.tenLT', '<>', "Dịch vụ")
+            ->where('loaitins.tenLT', '<>', Constants::$tin_dich_vu)
             ->paginate(5);
 
+        // Thống kê ở đây
+        if (!Auth::user()->hanhkhach) {
+            $dichvu_id = Loaitin::where('tenLT', Constants::$tin_dich_vu)->first()->id;
 
+            $so_chuyen_da_chay = Auth::user()->tindangs()
+                                ->where('status', true)
+                                ->where('loaitin_id', '<>', $dichvu_id)
+                                ->where('khoihanh', '<', Carbon::now())
+                                ->count();
 
+            $so_chuyen_sap_chay = Auth::user()->tindangs()
+                                  ->where('status', true)
+                                  ->where('loaitin_id', '<>', $dichvu_id)
+                                  ->where('khoihanh', '>=', Carbon::now())
+                                  ->count();
+
+            $so_chuyen_da_huy = Auth::user()->tindangs()
+                                ->where('status', false)
+                                ->count();
+
+            return view('dashboard', compact('tindangs', 'tindang_saves', 'tin_dichvus', 'has_tin_dv', 'so_chuyen_da_chay', 'so_chuyen_sap_chay', 'so_chuyen_da_huy'));
+        }
         return view('dashboard', compact('tindangs', 'tindang_saves', 'tin_dichvus', 'has_tin_dv'));
     }
 
@@ -66,7 +87,6 @@ class DashboardsController extends Controller
             $loaitin_id = $_REQUEST['loaitin_id'];
             $tindang_saves = Auth::user()->save_tindangs()
                 ->where('loaitin_id', $loaitin_id)
-                /*->where('status', true)*/
                 ->orderBy('ngaydang', 'desc')
                 ->paginate(5);
 
@@ -79,7 +99,6 @@ class DashboardsController extends Controller
         $loaitin_id = Loaitin::first()->id;
         $tindang_saves = Auth::user()->save_tindangs()
             ->where('loaitin_id', $loaitin_id)
-            /*->where('status', true)*/
             ->orderBy('ngaydang', 'desc')
             ->paginate(5);
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @if(isset($tindang))
-            @include('tindangs.partials.luu_capnhatlotrinh')
+        @include('tindangs.partials.luu_capnhatlotrinh')
         <div class="container-fluid row col-sm-offset-1">
             <div class="col-sm-11">
                 <div class="row">
@@ -105,7 +105,8 @@
                     @endif
                     <div class="row">
                         <div class="col-sm-12"><b>Lộ trình:</b></div>
-                        <div class="col-sm-12 text-center" style="font-size: 15px; font-weight: bold"> {{ $tindang->noidi }}
+                        <div class="col-sm-12 text-center"
+                             style="font-size: 15px; font-weight: bold"> {{ $tindang->noidi }}
                             - {{ $tindang->thanhphonoidi }} --> {{ $tindang->noiden }}
                             - {{ $tindang->thanhphonoiden }}</div>
 
@@ -132,6 +133,7 @@
                     <div class="col-md-12">&nbsp;</div>
                 </div>
 
+                <div class="fb-share-button" data-href="{{ Request::url() }}" data-layout="button_count"></div>
                 <div class="fb-comments" data-href="{{ Request::url() }}" data-width="100%" data-numposts="5"
                      data-order-by="reverse_time"></div>
 

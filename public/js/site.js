@@ -15717,7 +15717,7 @@ exports.colorLuminance = colorLuminance;
             hours = dTime.getHours(),
             minutes = Math.floor(dTime.getMinutes() / this.minuteStep) * this.minuteStep,
             seconds = Math.floor(dTime.getSeconds() / this.secondStep) * this.secondStep,
-            meridian = 'SÁNG';
+            meridian = 'AM';
 
           if (this.showMeridian) {
             if (hours === 0) {
@@ -15726,9 +15726,9 @@ exports.colorLuminance = colorLuminance;
               if (hours > 12) {
                 hours = hours - 12;
               }
-              meridian = 'CHIỀU';
+              meridian = 'PM';
             } else {
-              meridian = 'SÁNG';
+              meridian = 'AM';
             }
           }
 
@@ -15743,7 +15743,7 @@ exports.colorLuminance = colorLuminance;
           this.hour = 0;
           this.minute = 0;
           this.second = 0;
-          this.meridian = 'SÁNG';
+          this.meridian = 'AM';
         } else {
           this.setTime(defaultTime);
         }
@@ -15782,14 +15782,14 @@ exports.colorLuminance = colorLuminance;
           this.hour = 12;
         }
 
-        if (this.meridian === 'SÁNG' || this.meridian === 'a') {
-          this.meridian = 'SÁNG';
-        } else if (this.meridian === 'CHIỀU' || this.meridian === 'p') {
-          this.meridian = 'CHIỀU';
+        if (this.meridian === 'am' || this.meridian === 'a') {
+          this.meridian = 'AM';
+        } else if (this.meridian === 'pm' || this.meridian === 'p') {
+          this.meridian = 'PM';
         }
 
-        if (this.meridian !== 'SÁNG' && this.meridian !== 'CHIỀU') {
-          this.meridian = 'SÁNG';
+        if (this.meridian !== 'AM' && this.meridian !== 'PM') {
+          this.meridian = 'AM';
         }
       } else {
         if (this.hour >= 24) {
@@ -15864,7 +15864,7 @@ exports.colorLuminance = colorLuminance;
     },
 
     toggleMeridian: function() {
-      this.meridian = this.meridian === 'SÁNG' ? 'CHIỀU' : 'SÁNG';
+      this.meridian = this.meridian === 'AM' ? 'PM' : 'AM';
       this.update();
     },
 

@@ -26,7 +26,7 @@
                         sweetAlert("Không thành công", "Bạn đã đánh giá tài xế này rồi!", "error");
                         $('.rating{{ $taixe->id }}').rating('update', data[1]["ratepoint"]);
                     } else {
-                        $('.ratinglabel{{ $taixe->id }}').text(data["ratepoint"] + "/ 5 điểm - " + data["ratecount"] + " lượt bầu");
+                        $('.ratinglabel{{ $taixe->id }}').text(data["ratepoint"] + "/ 5 điểm - " + data["ratecount"]);
                         $('.rating{{ $taixe->id }}').rating('update', data["ratepoint"]);
                     }
                 })

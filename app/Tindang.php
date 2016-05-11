@@ -17,6 +17,7 @@ class Tindang extends Model
         'user_id',
         'giokhoihanh',
         'ngaykhoihanh',
+        'khoihanh',
         'giave',
         'loaixe_id',
         'loaitin_id'

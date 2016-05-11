@@ -2,37 +2,7 @@
 
 @section('css')
     <style>
-        .a_tieude:hover {
-            color: #5ca038;
-        }
 
-        .a_tieude {
-            font-weight: normal;
-            font-size: 18px;
-        }
-
-        .g {
-            margin-top: 0;
-            margin-bottom: 23px;
-        }
-
-        h3.r {
-            display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            -webkit-text-overflow: ellipsis;
-            white-space: nowrap;
-            margin: 0;
-            padding: 0;
-        }
-
-        .div_content_tintuc {
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            height: 20px;
-            font-size: 13px;
-        }
     </style>
 @endsection
 
@@ -50,9 +20,8 @@
                             <div class="s">
                                 <font style="font-size: 12px">{{ date_format(date_create($tintuc->updated_at), 'H:i - d/m/Y')}}</font>
                                     <div class="div_content_tintuc">
-                                        {!! $tintuc->noidung !!}}
+                                        {!! Str::words($tintuc->noidung, 15, ".....")!!}
                                     </div>
-                                    ...................................
                             </div>
                         </div><!--n-->
                     </div>

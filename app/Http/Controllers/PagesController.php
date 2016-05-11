@@ -27,9 +27,9 @@ class PagesController extends Controller
     }
     public function trangchu()
     {
-        $tindang_taixes = $this->tinTimxeList();
+        $tindang_taixes = $this->tinTimkhachList();
 
-        $tindang_hanhkhaches = $this->tinTimkhachList();
+        $tindang_hanhkhaches = $this->tinTimxeList();
 
         if(isset ( $_REQUEST['thanhphonoidi']) && isset ( $_REQUEST['thanhphonoiden']) && isset ( $_REQUEST['ngaykhoihanh'])){
 
@@ -67,7 +67,7 @@ class PagesController extends Controller
 
     public function timxe()
     {
-        $tindang_taixes = $this->tinTimxeList();
+        $tindang_taixes = $this->tinTimkhachList();
 
         if(isset ( $_REQUEST['thanhphonoidi']) && isset ( $_REQUEST['thanhphonoiden']) && isset ( $_REQUEST['ngaykhoihanh'])){
 
@@ -95,7 +95,7 @@ class PagesController extends Controller
 
     public function timkhach()
     {
-        $tindang_hanhkhaches = $this->tinTimkhachList();
+        $tindang_hanhkhaches = $this->tinTimxeList();
         if(isset ( $_REQUEST['thanhphonoidi']) && isset ( $_REQUEST['thanhphonoiden']) && isset ( $_REQUEST['ngaykhoihanh'])){
 
             $tindang_hanhkhaches = $tindang_hanhkhaches
@@ -132,18 +132,6 @@ class PagesController extends Controller
 
     protected function tinTimkhachList()
     {
-        $tindang_hanhkhaches = DB::table('tindangs')
-            ->select('tindangs.*', 'users.hoten', 'users.SDT')
-            ->join('users', 'tindangs.user_id', '=', 'users.id')
-            ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
-            ->where('loaitins.tenLT', '=', Constants::$tin_tim_khach)
-            ->where('tindangs.status', '=', true)
-            ->orderBy("ngaydang", "desc");
-        return $tindang_hanhkhaches;
-    }
-
-    protected function tinTimxeList()
-    {
         $order_by = "ngaydang";
         $sort = "desc";
         if(Input::get('sort') == 'giatangdan'){
@@ -159,10 +147,23 @@ class PagesController extends Controller
             ->join('taixes', 'users.id', '=', 'taixes.user_id')
             ->join('loaixes', 'taixes.loaixe_id', '=', 'loaixes.id')
             ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
-            ->where('loaitins.tenLT', '=', Constants::$tin_tim_xe)
+            ->where('loaitins.tenLT', '=', Constants::$tin_tim_khach)
             ->where('tindangs.status', '=', true)
             ->orderBy($order_by, $sort);
         return $tindang_taixes;
+    }
+
+    protected function tinTimxeList()
+    {
+
+        $tindang_hanhkhaches = DB::table('tindangs')
+            ->select('tindangs.*', 'users.hoten', 'users.SDT')
+            ->join('users', 'tindangs.user_id', '=', 'users.id')
+            ->join('loaitins', 'loaitins.id', '=', 'tindangs.loaitin_id')
+            ->where('loaitins.tenLT', '=', Constants::$tin_tim_xe)
+            ->where('tindangs.status', '=', true)
+            ->orderBy("ngaydang", "desc");
+        return $tindang_hanhkhaches;
     }
 
 

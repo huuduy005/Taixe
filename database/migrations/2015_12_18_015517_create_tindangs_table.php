@@ -25,6 +25,7 @@ class CreateTindangsTable extends Migration
             $table->integer('giave')->unsigned();
             $table->string('giokhoihanh');
             $table->string('ngaykhoihanh');
+            $table->timestamp('khoihanh');
             $table->boolean('status')->default(true);
             $table->timestamp('ngaydang')->default(DB::raw('CURRENT_TIMESTAMP'));
 
