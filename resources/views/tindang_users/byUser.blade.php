@@ -6,7 +6,7 @@
             @if($tindang->loaitin->tenLT != \App\Http\Controllers\Shared\Constants::$tin_dich_vu)
                 <table class="list_trangchu table table-responsive table{{$tindang->id}}">
                     <tr>
-                        <td width="250">
+                        <td width="350">
                             <table cellpadding="15">
                                 @if($tindang->user->is('hanhkhach'))
                                     <tr>
@@ -51,33 +51,30 @@
                                 </tr>
                             </table>
                         </td>
-                        <td width="500" align="center">
-                            <p class="value_lotrinh text-center"><i>{{$tindang->noidi}}
-                                    - {{ $tindang->thanhphonoidi }} <font color="red">
-                                        - </font> {{$tindang->noiden}}
-                                    - {{ $tindang->thanhphonoiden }}</i></p>
+                        <td align="center">
+                            <p class="value_lotrinh text-center">{{$tindang->noidi}}
+                                    - {{ $tindang->thanhphonoidi }} <font color="red" size="5">→</font> {{$tindang->noiden}}
+                                    - {{ $tindang->thanhphonoiden }}</p>
                             <p class="value_giokhoihanh"><font
                                         color="blue">{{ $tindang->giokhoihanh }}  {{ $tindang->ngaykhoihanh }}</font>
                             </p>
                             <a href="/tindangs/{{ $tindang->id }}"
                                class="chitiet_dixe border_radius">>Xem thông tin chi tiết ...</a>
                         </td>
-                        <td width="253">
+                        <td width="250">
                             @include('partials.option_tindang', ['tindang' => $tindang])
                             <p>&nbsp;</p>
-                            <div class="col-sm-4" style="padding-top: 7px">Giá vé:</div>
-                            <div class="col-sm-7">
-                                <p class="value_giave text-center"><font color="red" face="verdana">
+                            <div class="col-sm-12">
+                                <p class="value_giave text-right"><font face="verdana">
                                         @if($tindang->giave == 0)
-                                            <i>Thỏa thuận</i></font>
+                                            Thỏa thuận</font>
                                     @else
-                                        <i>{{ number_format($tindang->giave,0, ",", ".") }}đ</i></font>
+                                        {{ number_format($tindang->giave,0, ",", ".") }}đ</font>
                                     @endif
                                 </p>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">Ngày đăng:</div>
-                                <div class="col-sm-7">{{ $tindang->ngaydang }}</div>
+                                <div class="col-sm-12 text-right tindang_ngaydang">Ngày đăng: {{ $tindang->ngaydang }}</div>
                             </div>
                         </td>
                     </tr>

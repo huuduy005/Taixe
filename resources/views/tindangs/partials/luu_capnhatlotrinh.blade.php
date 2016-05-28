@@ -1,4 +1,4 @@
-<div class="col-md-1 text-right" style="position: fixed">
+<div class="col-md-1 pull-right">
     @if(Auth::check())
         @if(Auth::user()->id == $tindang->user->id)
             @if($tindang->loaitin->tenLT == \App\Http\Controllers\Shared\Constants::$tin_tim_khach)

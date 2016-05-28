@@ -15,7 +15,7 @@
     @include('partials.timkhach')
     <div class="text-right">
         @if(isset($tindang_taixes))
-            @if($tindang_taixes->count() >= 5)
+            @if($tindang_taixes->count() > 5)
 
                 {!! $tindang_taixes->appends(Request::except('page'))->render() !!}
             @else

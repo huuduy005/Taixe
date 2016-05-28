@@ -47,7 +47,7 @@
                             <tr>
                                 <td>{{ $tintuc->tieude }}</td>
                                 <td class="text-center">{{ $tintuc->created_at }}</td>
-                                <td class="text-center"><input class="minimal" id_tintuc="{{ $tintuc['id'] }}" id="chbx_tinhot"
+                                <td class="text-center"><input class="minimal chbx_tinhot" id_tintuc="{{ $tintuc['id'] }}" id="chbx_tinhot"
                                                                type="checkbox" {{ $tintuc->hot ? 'checked' : '' }}></td>
                                 <td class="text-center"><a href="/admin/tintucs/{{$tintuc->id}}/sua"
                                                            class="btn btn-primary btn-sm btn_edit"><span
@@ -98,7 +98,7 @@
 @section('script')
     <script type="text/javascript" src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
     <script>
-
+        $( document ).ready(function() {
         // Make icheck for checkbox Tin hot
         $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
@@ -106,7 +106,9 @@
         });
 
         {{-- Ajax Check tin hot true or false --}}
-        $('#chbx_tinhot').on('ifChanged', function (event) {
+        $('.chbx_tinhot').on('ifChanged', function (event) {
+
+
             id = $(this).attr("id_tintuc");
             val = $(this).prop('checked');
             $.get('/tintucs_admin/hot',
@@ -115,6 +117,7 @@
                     }
             )
         });
+
 
         // Xóa tin tức js
         $('.btn_delete').click(function (e) {
@@ -171,7 +174,7 @@
                     }
             )
         })
-
+        });
     </script>
 @endsection
 

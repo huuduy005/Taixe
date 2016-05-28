@@ -142,7 +142,7 @@ class PagesController extends Controller
         }
 
         $tindang_taixes = DB::table('tindangs')
-            ->select('tindangs.*', 'users.hoten', 'users.SDT', 'loaixes.tenLX', 'taixes.id as taixe_id', 'taixes.ratepoint', 'taixes.ratecount')
+            ->select('tindangs.*', 'users.hoten', 'users.SDT', 'loaixes.tenLX', 'taixes.id as taixe_id', 'taixes.ratepoint', 'taixes.ratecount', 'taixes.bienso')
             ->join('users', 'tindangs.user_id', '=', 'users.id')
             ->join('taixes', 'users.id', '=', 'taixes.user_id')
             ->join('loaixes', 'taixes.loaixe_id', '=', 'loaixes.id')

@@ -22,7 +22,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('hoten') ? ' has-error' : '' }}">
-                                <label class="col-md-4 control-label">Họ tên</label>
+                                <label class="col-md-4 control-label">Họ tên (*) : </label>
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control  input-sm" name="hoten"
@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label class="col-md-4 control-label">Địa chỉ email</label>
+                                <label class="col-md-4 control-label">Địa chỉ email (*) : </label>
 
                                 <div class="col-md-6">
                                     <input type="email" class="form-control  input-sm" name="email"
@@ -54,7 +54,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label class="col-md-4 control-label">Mật khẩu</label>
+                                <label class="col-md-4 control-label">Mật khẩu (*) : </label>
 
                                 <div class="col-md-6">
                                     <input type="password" class="form-control  input-sm" name="password" required>
@@ -68,7 +68,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label class="col-md-4 control-label">Xác nhận mật khẩu</label>
+                                <label class="col-md-4 control-label">Xác nhận mật khẩu (*) : </label>
 
                                 <div class="col-md-6">
                                     <input type="password" class="form-control  input-sm" name="password_confirmation"
@@ -84,7 +84,7 @@
 
                             <!-- add SDT Form input -->
                             <div class="form-group row">
-                                {!! Form::label('SDT', 'SDT:', ['class'=> 'col-md-4 control-label']) !!}
+                                {!! Form::label('SDT', 'SDT (*) :', ['class'=> 'col-md-4 control-label']) !!}
                                 <div class="col-sm-6">
                                     {!! Form::text('SDT', null, ['class' => 'form-control input-sm', 'required']) !!}
                                 </div>
@@ -106,7 +106,7 @@
 
                                 <!-- add bienso Form input -->
                                 <div class="form-group row">
-                                    {!! Form::label('bienso', 'Biển số:', ['class'=> 'col-md-4 control-label label-bienso']) !!}
+                                    {!! Form::label('bienso', 'Biển số :', ['class'=> 'col-md-4 control-label label-bienso']) !!}
                                     <div class="col-sm-6">
                                         {!! Form::text('bienso', null, ['class' => 'form-control  input-sm']) !!}
                                     </div>

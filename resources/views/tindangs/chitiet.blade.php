@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     @if(isset($tindang))
-        @include('tindangs.partials.luu_capnhatlotrinh')
         <div class="container-fluid row col-sm-offset-1">
             <div class="col-sm-11">
                 <div class="row">
@@ -9,14 +8,14 @@
                 </div>
                 <div class="row">
                     @if(isset($taixe))
-                        <div class="col-md-1" style="margin-top: 2%"><img src="../images/cab.jpg"
+                        <div class="col-sm-1" style="margin-top: 2%"><img src="../images/cab.jpg"
                                                                           class="img-responsive img-rounded img1 ">
                         </div>
                     @else
-                        <div class="col-md-1"><img src="../images/passager.jpg"
+                        <div class="col-sm-1"><img src="../images/passager.jpg"
                                                    class="img-responsive img-rounded img1 "></div>
                     @endif
-                    <div class="col-md-7">
+                    <div class="col-sm-7">
                         <div class="row">
                             <div class="col-sm-2"><b>Họ tên:</b></div>
                             <div class="col-sm-5"><b>{{ $tindang->user->hoten }} </b></div>
@@ -29,7 +28,7 @@
                         @if(isset($taixe))
                             <div class="row">
                                 <div class="col-sm-2"><b>Loại xe:</b></div>
-                                <div class="col-sm-5"><b>{{ $taixe->loaixe->tenLX }} </b></div>
+                                <div class="col-sm-5"><b>{{ $taixe->loaixe->tenLX }} ( {{ $taixe->bienso }}) </b></div>
                             </div>
                             <div class="row">
                                 <div style="width: 29%; float: left">
@@ -48,27 +47,27 @@
                         @endif
                     </div>
 
+                    @include('tindangs.partials.luu_capnhatlotrinh')
+
                 </div>
 
                 <hr>
                 <div class="row">
-                    <div class="col-md-12" style="font-size:16px"><font
+                    <div class="col-sm-12" style="font-size:20px"><font
                                 color="green"><b>{{ $tindang->tieude }}</b></font></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12" style="font-size:12px"><i>{{ $tindang->ngaydang}}</i></div>
-                    <div class="col-md-12">&nbsp;</div>
+                    <div class="col-sm-12" style="font-size:12px"><i>{{ $tindang->ngaydang}}</i></div>
+                    <div class="col-sm-12">&nbsp;</div>
                 </div>
 
                 @unless($tindang->loaitin->tenLT == "Dịch vụ")
                     @if(isset($taixe))
                         <div class="row">
-                            <div class="col-md-2 text-left"><font
-                                        color="orange"><b>{{ $tindang->giokhoihanh }}</b></font>
+                            <div class="col-sm-2 text-left chitiet_giokhoihanh">{{ $tindang->giokhoihanh }}
                             </div>
-                            <div class="col-md-8" style="text-align:center">{{ $tindang->ngaykhoihanh }}</div>
-                            <div class="col-md-2 text-right">
-                                <font color="red">
+                            <div class="col-sm-8 chitiet_giokhoihanh" style="text-align:center">{{ $tindang->ngaykhoihanh }}</div>
+                            <div class="col-sm-2 text-right chitiet_tien">
                                     <b>
                                         @if($tindang->giave == 0)
                                             Thỏa thuận
@@ -76,7 +75,6 @@
                                             {{ number_format($tindang->giave,0, ",", ".") }}đ
                                         @endif
                                     </b>
-                                </font>
                             </div>
                         </div>
                         <div class="container-fluid">
@@ -84,8 +82,8 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-2"><b>{{ $tindang->thanhphonoidi }}</b></div>
-                            <div class="col-md-8" style="text-align:center">
+                            <div class="col-sm-2 chitietlotrinh"><b>{{ $tindang->thanhphonoidi }}</b></div>
+                            <div class="col-sm-8" style="text-align:center">
                                 <b style="color:green;" class="lotrinhhientai">
                                     @if($tindang->lotrinhhientai != "" && $tindang->lotrinhhientai != null)
                                         {{ $tindang->lotrinhhientai }}
@@ -98,7 +96,7 @@
                                 </font>
 
                             </div>
-                            <div class="col-md-2" align="right"><b>{{ $tindang->thanhphonoiden }}</b></div>
+                            <div class="col-sm-2 chitietlotrinh" align="right"><b>{{ $tindang->thanhphonoiden }}</b></div>
                         </div>
                         <br>
                         <br>
@@ -106,11 +104,11 @@
                     <div class="row">
                         <div class="col-sm-12"><b>Lộ trình:</b></div>
                         <div class="col-sm-12 text-center"
-                             style="font-size: 15px; font-weight: bold"> {{ $tindang->noidi }}
-                            - {{ $tindang->thanhphonoidi }} --> {{ $tindang->noiden }}
+                             style="font-size: 17px; font-weight: bold"> {{ $tindang->noidi }}
+                            - {{ $tindang->thanhphonoidi }} <font color="red" size="5">→</font> {{ $tindang->noiden }}
                             - {{ $tindang->thanhphonoiden }}</div>
 
-                        <div class="col-md-12">&nbsp;</div>
+                        <div class="col-sm-12">&nbsp;</div>
                     </div>
 
                     @unless(isset($taixe))
@@ -120,7 +118,7 @@
                             <div class="col-sm-2"><b>Ngày khởi hành:</b></div>
                             <div class="col-sm-2">{{ $tindang->ngaykhoihanh }}</div>
 
-                            <div class="col-md-12">&nbsp;</div>
+                            <div class="col-sm-12">&nbsp;</div>
                         </div>
                     @endunless
                 @endunless
@@ -130,7 +128,7 @@
                     <br/>
                     <div class="col-sm-12" style="padding-left: 8%"> {!! $tindang->noidung !!} </div>
 
-                    <div class="col-md-12">&nbsp;</div>
+                    <div class="col-sm-12">&nbsp;</div>
                 </div>
 
                 <div class="fb-share-button" data-href="{{ Request::url() }}" data-layout="button_count"></div>

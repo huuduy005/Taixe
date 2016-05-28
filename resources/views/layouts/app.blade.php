@@ -21,6 +21,8 @@
     @yield('css')
 
     <script src="{{ asset("js/site.js") }}"></script>
+
+
     {{--<script src="{{asset("js/temp.js")}}"></script>--}}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

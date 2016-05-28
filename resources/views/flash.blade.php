@@ -29,7 +29,7 @@
 @endif
 
 @if(Session::has(\App\Http\Controllers\Shared\Constants::$flash_error.'.message'))
-    <div class="alert alert-error {{ Session::pull(\App\Http\Controllers\Shared\Constants::$flash_error.'.flash_message_important')? 'alert-important' : '' }}"
+    <div class="alert alert-danger {{ Session::pull(\App\Http\Controllers\Shared\Constants::$flash_error.'.flash_message_important')? 'alert-important' : '' }}"
          style="font-size: 14px">{!! Session::pull(\App\Http\Controllers\Shared\Constants::$flash_error.'.message') !!}
         <button type='button' class='close' data-dismiss='alert'>×</button>
     </div>

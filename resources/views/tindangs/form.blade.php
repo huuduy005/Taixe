@@ -106,9 +106,10 @@
 
 <!-- add Dang tin Form input -->
 <div class="form-group text-center">
-    <button type="submit" class="btn btn-primary btn_dangtin"><span class="glyphicon glyphicon-ok-circle"></span> {{$submitButtonText}}</button>
+    <button type="submit" class="btn btn-primary btn_dangtin"><span
+                class="glyphicon glyphicon-ok-circle"></span> {{$submitButtonText}}</button>
     @if(Request::is('*sua'))
-       {{-- <a href="/dashboard" class="btn btn-warning" style="width: 9%">Hủy</a>--}}
+        {{-- <a href="/dashboard" class="btn btn-warning" style="width: 9%">Hủy</a>--}}
         <a href="/dashboard" type="button" style="width: 9%" class="btn btn-warning btn_dangtin">
             <i class="glyphicon glyphicon-ban-circle"></i>
             <span>Hủy</span>
@@ -125,8 +126,8 @@
 <script type="text/javascript" src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
 <script type="text/javascript">
-
     $(function () {
+
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
         CKEDITOR.replace('editor1');
@@ -179,7 +180,7 @@
 
         /* Hide div if radio tin dich vu is clicked when loading dom  */
         var checked = $('#rd_tindichvu').iCheck('update')[0].checked;
-        if(checked) {
+        if (checked) {
             $('#tindichvu_tinthuong').hide();
         }
 

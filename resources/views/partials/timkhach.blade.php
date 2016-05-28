@@ -3,7 +3,7 @@
     @foreach($tindang_hanhkhaches as $hanhkhach)
         <table class="list_trangchu  table table-responsive table{{$hanhkhach->id}}">
             <tr>
-                <td width="250">
+                <td width="350">
                     <table  class="table-responsive">
                         <tr>
                             <td colspan="2">
@@ -30,20 +30,19 @@
                         </tr>
                     </table>
                 </td>
-                <td width="500" align="center">
-                    <p class="value_lotrinh text-center"><i>{{ $hanhkhach->noidi }} - {{ $hanhkhach->thanhphonoidi }} <font color="red"> - </font> {{ $hanhkhach->noiden }} - {{ $hanhkhach->thanhphonoiden }}</i></p>
+                <td align="center">
+                    <p class="value_lotrinh text-center">{{ $hanhkhach->noidi }} - {{ $hanhkhach->thanhphonoidi }} <font color="red" size="5">→</font> {{ $hanhkhach->noiden }} - {{ $hanhkhach->thanhphonoiden }}</p>
                     <p class="value_giokhoihanh">
                         <font color="blue">{{ $hanhkhach->giokhoihanh }}  {{ $hanhkhach->ngaykhoihanh }}</font>
                     </p>
                     <a href="/tindangs/{{ $hanhkhach->id }}" class="chitiet_dixe border_radius">>Xem thông tin chi tiết ...</a>
                 </td>
-                <td width="253">
+                <td width="250">
                     @include('partials.option_tindang', ['tindang' => $hanhkhach])
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
                     <div class="row">
-                        <div class="col-sm-4">Ngày đăng:</div>
-                        <div class="col-sm-7">{{ date_format(date_create($hanhkhach->ngaydang), 'H:i:s - m/d/Y')}}</div>
+                        <div class="col-sm-12 tindang_ngaydang text-right">Ngày đăng: {{ date_format(date_create($hanhkhach->ngaydang), 'H:i:s - m/d/Y')}}</div>
                     </div>
                 </td>
             </tr>
