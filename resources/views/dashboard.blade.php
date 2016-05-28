@@ -244,7 +244,7 @@
                                                                    class="rating rating{{ $taixe->id }}" min=0 max=5
                                                                    step=0.5 data-size="xs"
                                                                    data-show-caption="false">
-                                                            <font color="#aaa"><span
+                                                            <font color="#aaa" style="font-weight: normal"><span
                                                                         class="ratinglabel{{ $taixe->id }}">{{ $taixe->ratepoint }}
                                                                     / 5 điểm - {{ $taixe->ratecount }}
                                                                     lượt bầu</span></font>
@@ -340,6 +340,9 @@
 
                                         .table{{$tindang->id}} .value_giave font, .table{{$tindang->id}} .disable_color font {
                                             color: #bbb !important;
+                                        }
+                                        .table{{$tindang->id}} .value_lotrinh > font{
+                                            color: #aaa;
                                         }
 
                                     </style>

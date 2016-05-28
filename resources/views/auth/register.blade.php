@@ -12,7 +12,7 @@
                             {!! csrf_field() !!}
 
                             <div class="form-group row">
-                                <label for="banla" class="col-md-4 control-label">Bạn là :</label>
+                                <label for="banla" class="col-md-4 control-label">Bạn là (*):</label>
                                 <div class="col-sm-6">
                                     <select name="banla" id="banla" class="form-control select2">
                                         <option value="taixe">Tài xế</option>
@@ -92,7 +92,7 @@
 
                             <div class="is_taixe">
                                 <div class="form-group row">
-                                    {!! Form::label('loaixe_id', 'Loại xe :', ['class'=> 'col-md-4 control-label label-loaixe']) !!}
+                                    {!! Form::label('loaixe_id', 'Loại xe (*):', ['class'=> 'col-md-4 control-label label-loaixe']) !!}
                                     <div class="col-sm-6">
                                         <select class="form-control select2" name="loaixe_id" id="loaixe_id">
                                             @if(isset($loaixes))

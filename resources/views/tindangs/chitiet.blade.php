@@ -18,7 +18,8 @@
                     <div class="col-sm-7">
                         <div class="row">
                             <div class="col-sm-2"><b>Họ tên:</b></div>
-                            <div class="col-sm-5"><b>{{ $tindang->user->hoten }} </b></div>
+                            <div class="col-sm-5"><b>{!! link_to_action('TindangusersController@byUser', $tindang->user->hoten , $tindang->user_id) !!} </b></div>
+
                         </div>
                         <div class="row">
                             <div class="col-sm-2"><b>SĐT :</b></div>
@@ -57,17 +58,17 @@
                                 color="green"><b>{{ $tindang->tieude }}</b></font></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12" style="font-size:12px"><i>{{ $tindang->ngaydang}}</i></div>
+                    <div class="col-sm-12 ngaydang">{{ $tindang->ngaydang}}</div>
                     <div class="col-sm-12">&nbsp;</div>
                 </div>
 
                 @unless($tindang->loaitin->tenLT == "Dịch vụ")
                     @if(isset($taixe))
                         <div class="row">
-                            <div class="col-sm-2 text-left chitiet_giokhoihanh">{{ $tindang->giokhoihanh }}
+                            <div class="col-sm-4 text-left chitiet_giokhoihanh">{{ $tindang->giokhoihanh }}
                             </div>
-                            <div class="col-sm-8 chitiet_giokhoihanh" style="text-align:center">{{ $tindang->ngaykhoihanh }}</div>
-                            <div class="col-sm-2 text-right chitiet_tien">
+                            <div class="col-sm-4 chitiet_giokhoihanh" style="text-align:center">{{ $tindang->ngaykhoihanh }}</div>
+                            <div class="col-sm-4 text-right chitiet_tien">
                                     <b>
                                         @if($tindang->giave == 0)
                                             Thỏa thuận
@@ -82,8 +83,8 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-2 chitietlotrinh"><b>{{ $tindang->thanhphonoidi }}</b></div>
-                            <div class="col-sm-8" style="text-align:center">
+                            <div class="col-sm-4 chitietlotrinh"><b>{{ $tindang->thanhphonoidi }}</b></div>
+                            <div class="col-sm-4" style="text-align:center">
                                 <b style="color:green;" class="lotrinhhientai">
                                     @if($tindang->lotrinhhientai != "" && $tindang->lotrinhhientai != null)
                                         {{ $tindang->lotrinhhientai }}
@@ -96,7 +97,7 @@
                                 </font>
 
                             </div>
-                            <div class="col-sm-2 chitietlotrinh" align="right"><b>{{ $tindang->thanhphonoiden }}</b></div>
+                            <div class="col-sm-4 chitietlotrinh" align="right"><b>{{ $tindang->thanhphonoiden }}</b></div>
                         </div>
                         <br>
                         <br>
@@ -114,9 +115,9 @@
                     @unless(isset($taixe))
                         <div class="row">
                             <div class="col-sm-3"><b>Giờ khởi hành mong muốn:</b></div>
-                            <div class="col-sm-2">{{ $tindang->giokhoihanh }}</div>
+                            <div class="col-sm-2 chitiet_giokhoihanh">{{ $tindang->giokhoihanh }}</div>
                             <div class="col-sm-2"><b>Ngày khởi hành:</b></div>
-                            <div class="col-sm-2">{{ $tindang->ngaykhoihanh }}</div>
+                            <div class="col-sm-2 chitiet_giokhoihanh">{{ $tindang->ngaykhoihanh }}</div>
 
                             <div class="col-sm-12">&nbsp;</div>
                         </div>

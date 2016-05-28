@@ -53,8 +53,8 @@
                         </td>
                         <td align="center">
                             <p class="value_lotrinh text-center">{{$tindang->noidi}}
-                                    - {{ $tindang->thanhphonoidi }} <font color="red" size="5">→</font> {{$tindang->noiden}}
-                                    - {{ $tindang->thanhphonoiden }}</p>
+                                - {{ $tindang->thanhphonoidi }} <font color="red" size="5">→</font> {{$tindang->noiden}}
+                                - {{ $tindang->thanhphonoiden }}</p>
                             <p class="value_giokhoihanh"><font
                                         color="blue">{{ $tindang->giokhoihanh }}  {{ $tindang->ngaykhoihanh }}</font>
                             </p>
@@ -66,15 +66,20 @@
                             <p>&nbsp;</p>
                             <div class="col-sm-12">
                                 <p class="value_giave text-right"><font face="verdana">
-                                        @if($tindang->giave == 0)
-                                            Thỏa thuận</font>
+                                   @if(!$tindang->user->is('hanhkhach'))
+                                            @if($tindang->giave == 0)
+                                                Thỏa thuận</font>
                                     @else
                                         {{ number_format($tindang->giave,0, ",", ".") }}đ</font>
+                                    @endif
+                                    @else
+                                        &nbsp;
                                     @endif
                                 </p>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12 text-right tindang_ngaydang">Ngày đăng: {{ $tindang->ngaydang }}</div>
+                                <div class="col-sm-12 text-right tindang_ngaydang">Ngày
+                                    đăng: {{ $tindang->ngaydang }}</div>
                             </div>
                         </td>
                     </tr>

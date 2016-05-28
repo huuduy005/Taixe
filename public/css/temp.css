@@ -35,7 +35,6 @@ h3.r {
 .tindang_ngaydang{
     color: #aaa;
     font-weight: normal!important;
-    font-style: italic;
 }
 .value_giave {
     font-size: 25px;
@@ -58,4 +57,15 @@ h3.r {
 }
 .lotrinhhientai{
     font-size: 17px;
+}
+.s > font{
+    color: #aaa!important;
+}
+.ngaydang{
+    color: #aaa;
+}
+
+.tintuc_ngay{
+    font-style: normal;
+    color: #aaa;
 }

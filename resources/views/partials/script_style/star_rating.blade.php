@@ -3,7 +3,7 @@
         <input value="{{ $tindang->ratepoint }}" id="rating{{ $tindang->id }}" type="number"
                class="rating rating{{ $tindang->taixe_id }}" min=0 max=5 step=0.5 data-size="xs"
                data-show-caption="false">
-        <font color="#aaa">
+        <font color="#aaa" style="font-weight: normal">
             <span class="ratinglabel{{ $tindang->taixe_id }}">{{ $tindang->ratepoint }}
                 / 5 điểm - {{ $tindang->ratecount }} </span> lượt bầu
         </font>
